@@ -35,7 +35,7 @@ function App() {
 
   async function handleSearch() {
     try {
-      var response = await fetch(`http://192.168.1.202:4000/search/?q=${query}`);
+      var response = await fetch(`http://172.249.53.117:4000/search/?q=${query}`);
       var data = await response.json();
       console.log(data);
       setSyllabi(data);
@@ -63,7 +63,7 @@ function App() {
     formdata.append("email", email);
     formdata.append("name", name);
 
-    fetch(`http://192.168.1.202:4000/create`, {
+    fetch(`http://172.249.53.117:4000/create`, {
       method: 'POST',
       body: formdata,
     })
