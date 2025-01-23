@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
-import { Select, SelectSection, SelectItem } from "@nextui-org/select";
+import { useEffect, useState } from 'react'
 import './App.css'
 
 import SyllabusListing, { ClassListing } from './syllabus_comp';
 
 import { Accordion, FileInput } from "flowbite-react";
 
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import { Button, Label, Modal, TextInput } from "flowbite-react";
 
 
 export const classOptions = [ // TODO REMOVE
@@ -16,24 +15,18 @@ export const classOptions = [ // TODO REMOVE
   { key: "physics", label: "Physics" },
 ];
 
-type UploadEndpointResponse = {
-  fileId?: string
-  msg?: string
-}
 
 
 
 function App() {
-  const [take, setTake] = useState(10)
   const [openModal, setOpenModal] = useState(false);
-  const [openCompletedModal, setCompletedModal] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [accordionOpen, setAccordionOpen] = useState(false);
   const [tempFileId, setTempFileId] = useState<string>("");
 
   const [file, setFile] = useState<File | null>(null);
-  const [disabled, setDisabled] = useState(true);
+
 
   const [syllabi, setSyllabi] = useState<ClassListing[]>([]);
   const [query, setQuery] = useState<string>("");
@@ -55,7 +48,6 @@ function App() {
     setOpenModal(false);
     setEmail('');
     setName('');
-    setDisabled(true);
     setFile(null);
     setAccordionOpen(false);
   }
@@ -79,7 +71,6 @@ function App() {
         if (!response.ok) {
             throw new Error(`Server error: ${response.statusText}`);
         }
-        setDisabled(false);
         setAccordionOpen(true);
         let data = await response.json();
         console.log(data);
@@ -96,9 +87,7 @@ function App() {
   useEffect(() => {
     console.log("temp file is", tempFileId)
   }, [tempFileId])
-  function onCloseCompletedModal() {
-    setCompletedModal(false);
-  }
+
 
   useEffect(() => {
     handleSearch();
@@ -112,7 +101,6 @@ function App() {
     if (e.target.files[0] === null) return
     
     setFile(e.target.files[0]);
-    setDisabled(false);
     setAccordionOpen(true); 
   } 
 
