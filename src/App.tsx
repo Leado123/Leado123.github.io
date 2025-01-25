@@ -35,7 +35,7 @@ function App() {
 
   async function handleSearch() {
     try {
-      var response = await fetch(`http://172.249.53.117:4000/search/?q=${query}`);
+      var response = await fetch(`https://api.sharesyllabus.me/search/?q=${query}`);
       var data = await response.json();
       console.log(data);
       setSyllabi(data);
@@ -63,7 +63,7 @@ function App() {
     formdata.append("email", email);
     formdata.append("name", name);
 
-    fetch(`http://172.249.53.117:4000/create`, {
+    fetch(`https://api.sharesyllabus.me/create`, {
       method: 'POST',
       body: formdata,
     })
@@ -113,7 +113,7 @@ function App() {
   return (
     <>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-      <h3 className="text-2xl font-bold text-center">View & Share College Syllabi JFKMCHS/Norco College</h3> <br></br>
+      <h3 className="text-2xl font-bold text-center">Easily View & Share College Syllabi JFKMCHS/Norco College</h3> <br></br>
       <div className="">
         <div className="flex space-x-1">
           <button onClick={() => setOpenModal(true)} className=" bg-blue-700 p-2 text-yellow-50 rounded-lg flex flex-row">
