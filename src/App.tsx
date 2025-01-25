@@ -17,7 +17,7 @@ export const classOptions = [ // TODO REMOVE
 
 
 function findIfMobile() {
-  //return true;
+  return true;
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
@@ -165,10 +165,10 @@ function App() {
                 <span className="text-xs">1 volunteer hours</span></span>
             </button>
             <div className="flex-1 flex bg-white rounded-lg">
-              <input type="search" onKeyDown={handleKeyDown} placeholder="search, hit enter or the search button to enter query" className="focus:outline-none bg-transparent border-none flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
+              <input type="search" onKeyDown={handleKeyDown} placeholder="class or professor" className="focus:outline-none bg-transparent border-none flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
 
               </input>
-              <button className="aspect-square flex justify-center items-center" onClick={handleSearch}>
+              <button className="aspect-square flex justify-center bg-white items-center" onClick={handleSearch}>
                 <span className="material-symbols-rounded text-black">
                   search
                 </span>
