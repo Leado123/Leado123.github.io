@@ -177,14 +177,7 @@ function App() {
           </div>
           <div className="listing">
           {syllabi.map((syllabus, i) => {
-            return (
-              <>
-                <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} professor={syllabus.professor} />
-                {i === syllabi.length - 1 && <SyllabusListing key={i + 1} fileName={"syllabus.fileName"} className={"syllabus.className"} professor={"syllabus.professor"} />}
-              </>
-              
-            )
-
+              return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} professor={syllabus.professor} />
           })}
 
           </div>
