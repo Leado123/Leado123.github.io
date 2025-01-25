@@ -10,11 +10,11 @@ function SyllabusListing({className, professor, fileName}: ClassListing) {
 
     async function handleDownload() {
         const a = document.createElement('a');
-        a.href= `http://192.168.1.202:4000/files/${fileName}`;
+        a.href= `https://api.sharesyllabus.me/files/${fileName}`;
         a.download = fileName || 'syllabus.pdf';
         a.click();
         a.remove();
-        window.URL.revokeObjectURL(`http://192.168.1.202:4000/files/${fileName}`);
+        window.URL.revokeObjectURL(`https://api.sharesyllabus.me/files/${fileName}`);
     }
 
     return(
