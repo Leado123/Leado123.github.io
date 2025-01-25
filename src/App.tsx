@@ -151,8 +151,7 @@ function App() {
             {syllabi.map((syllabus, i) => {
               return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} professor={syllabus.professor} />
             })}
-            <SyllabusListing fileName={"syllabus.fileName"} className={"syllabus.className"} professor={"syllabus.professor"} />
-            <SyllabusListing fileName={"syllabus.fileName"} className={"syllabus.className"} professor={"syllabus.professor"} />
+
           </div>
         </div>
       </div>}
@@ -187,8 +186,7 @@ function App() {
             )
 
           })}
-          <SyllabusListing fileName={"syllabus.fileName"} className={"syllabus.className"} professor={"syllabus.professor"} />
-          <SyllabusListing fileName={"syllabus.fileName"} className={"syllabus.className"} professor={"syllabus.professor"} />
+
           </div>
         </div>
       </div>}
