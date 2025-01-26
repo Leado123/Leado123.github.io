@@ -6,7 +6,7 @@ import SyllabusListing, { ClassListing } from './syllabus_comp';
 import { Accordion, FileInput } from "flowbite-react";
 
 import { Button, Label, Modal, TextInput } from "flowbite-react";
-
+import Marquee from 'react-fast-marquee';
 
 export const classOptions = [ // TODO REMOVE
   { key: "nofilter", label: "No Class Filter" },
@@ -17,7 +17,7 @@ export const classOptions = [ // TODO REMOVE
 
 
 function findIfMobile() {
-  return true;
+  //return true;
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
@@ -34,7 +34,6 @@ function App() {
 
   const [syllabi, setSyllabi] = useState<ClassListing[]>([]);
   const [query, setQuery] = useState<string>("");
-
 
 
   async function handleSearch() {
@@ -127,58 +126,77 @@ function App() {
   return (
     <>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-      {isMobile === false && <div className="place-items-center p-10">
-        <h3 className="text-2xl font-bold text-center">Easily View & Share College Syllabi JFKMCHS/Norco College</h3> <br></br>
+      {isMobile === false && <div className="p-10 flex justify-center items-center">
+        <div className="w-1/2">
+          <div className="flex flex-row">
+            <h3 className="text-5xl mb-5 font-bold text-left flex-1">📚 Share Syllabus</h3>
+          </div>
+          <p className="text-left ">
+            A platform for sharing and exploring course syllabi, helping students compare class structures, assignments, and topics while earning community service hours by contributing syllabuses to the knowledge base.</p>
+          <div className="pt-1 text-left flex flex-row space-x-2">
+            <p className="text-xs font-bold">Contacts:</p>
+            <Marquee className="text-xs flex-1" speed={25}>
+              <p className=" "> lwen3@student.rccd.edu 336722@students.cnusd.k12.ca.us College Success Club @college_success_club | here to assist those who wish to know how hard classes are before taking them at Norco College | do you have a computer running linux 24/7 with port forwarding? contact us to help host this website! |</p>
+            </Marquee>
+          </div>
+          <div className="w-full p-6 flex justify-between text-sm underline">
+            <a>MyPortal</a>
+            <a>IGETC</a>
+            <a>Counseling</a>
+            <a>RCCD GE (Graduation Requirements)</a>
+          </div>
+          <div className="">
+            <div className="flex space-x-1">
+              <button onClick={() => setOpenModal(true)} className=" bg-blue-700 p-2 text-yellow-50 rounded-lg flex flex-row">
+                <span className="flex justify-center items-center aspect-square flex-1"><i className="material-symbols-rounded">attach_file</i></span>
+                <span className="flex flex-col">            <span className="text-sm">add a syllabus</span>
+                  <span className="text-xs">1 volunteer hours</span></span>
+              </button>
+              <div className="flex-1 flex bg-white rounded-lg">
+                <input type="search" onKeyDown={handleKeyDown} placeholder="search, hit enter or the search button to enter query" className="focus:outline-none bg-transparent border-none flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
+
+                </input>
+                <button className="aspect-square flex justify-center items-center" onClick={handleSearch}>
+                  <span className="material-symbols-rounded text-black">
+                    search
+                  </span>
+                </button></div>
+
+            </div>
+            <div className="listing">
+              {syllabi.map((syllabus, i) => {
+                return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} professor={syllabus.professor} />
+              })}
+
+            </div>
+          </div>
+        </div>
+      </div>}
+      {isMobile === true && <div className="p-1 pt-2">
+        <h3 className="text-2xl font-bold mb-2">Share Syllabus</h3>
+
         <div className="">
           <div className="flex space-x-1">
-            <button onClick={() => setOpenModal(true)} className=" bg-blue-700 p-2 text-yellow-50 rounded-lg flex flex-row">
-              <span className="flex justify-center items-center aspect-square flex-1"><i className="material-symbols-rounded">attach_file</i></span>
-              <span className="flex flex-col">            <span className="text-sm">add a syllabus</span>
-                <span className="text-xs">1 volunteer hours</span></span>
-            </button>
+
             <div className="flex-1 flex bg-white rounded-lg">
-              <input type="search" onKeyDown={handleKeyDown} placeholder="search, hit enter or the search button to enter query" className="focus:outline-none bg-transparent border-none flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
+              <input type="search" onKeyDown={handleKeyDown} placeholder="search class or professor" className="focus:outline-none w-4/5 bg-transparent border-none flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
 
               </input>
-              <button className="aspect-square flex justify-center items-center" onClick={handleSearch}>
+              <button className="aspect-square flex justify-center bg-white rounded-lg items-center" onClick={handleSearch}>
                 <span className="material-symbols-rounded text-black">
                   search
                 </span>
               </button></div>
-
+            <button onClick={() => setOpenModal(true)} className=" bg-blue-700 p-1 text-yellow-50 rounded-lg flex flex-row">
+              <span className="flex justify-center items-center aspect-square flex-1"><i className="material-symbols-rounded">attach_file</i></span>
+                <span className="text-xs">1 hr</span>
+            </button>
           </div>
+
           <div className="listing">
             {syllabi.map((syllabus, i) => {
               return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} professor={syllabus.professor} />
             })}
-
-          </div>
-        </div>
-      </div>}
-      {isMobile === true && <div className="p-1 pt-4">
-        <h3 className="text-2xl font-bold">Easily View & Share College Syllabi JFKMCHS/Norco College</h3> <br></br>
-        <div className="">
-          <div className="flex space-x-1">
-            <button onClick={() => setOpenModal(true)} className=" bg-blue-700 p-2 text-yellow-50 rounded-lg flex flex-row">
-              <span className="flex justify-center items-center aspect-square flex-1"><i className="material-symbols-rounded">attach_file</i></span>
-              <span className="flex flex-col">            <span className="text-sm">add a syllabus</span>
-                <span className="text-xs">1 volunteer hours</span></span>
-            </button>
-            <div className="flex-1 flex bg-white rounded-lg">
-              <input type="search" onKeyDown={handleKeyDown} placeholder="class or professor" className="focus:outline-none bg-transparent border-none flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
-
-              </input>
-              <button className="aspect-square flex justify-center bg-white items-center" onClick={handleSearch}>
-                <span className="material-symbols-rounded text-black">
-                  search
-                </span>
-              </button></div>
-
-          </div>
-          <div className="listing">
-          {syllabi.map((syllabus, i) => {
-              return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} professor={syllabus.professor} />
-          })}
 
           </div>
         </div>

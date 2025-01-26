@@ -1,7 +1,20 @@
 #root {
   margin: 0 auto;
   text-align: center;
+  place-items: center;
 }
+
+
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%); /* Start from the right outside of the container */
+  }
+  100% {
+    transform: translateX(-100%); /* Scroll to the left outside of the container */
+  }
+}
+
 
 .logo {
   height: 6em;
