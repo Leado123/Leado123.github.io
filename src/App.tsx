@@ -7,6 +7,7 @@ import { Accordion, FileInput } from "flowbite-react";
 
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import Marquee from 'react-fast-marquee';
+import { useLocation } from 'react-router-dom';
 
 export const classOptions = [ // TODO REMOVE
   { key: "nofilter", label: "No Class Filter" },
@@ -15,6 +16,7 @@ export const classOptions = [ // TODO REMOVE
   { key: "physics", label: "Physics" },
 ];
 
+var searchQuery = "";
 
 function findIfMobile() {
   //return true;
@@ -37,8 +39,14 @@ function App() {
 
 
   async function handleSearch() {
+    if (query != "") searchQuery = query;
+    console.log(`searching for ${query}`);
     try {
-      var response = await fetch(`https://api.sharesyllabus.me/search/?q=${query}`);
+      if (searchQuery === "") {
+        var response = await fetch(`https://api.sharesyllabus.me/search/?q=${query}`);
+      } else {
+        var response = await fetch(`https://api.sharesyllabus.me/search/?q=${searchQuery}`);
+      }
       var data = await response.json();
       console.log(data);
       setSyllabi(data);
@@ -91,9 +99,11 @@ function App() {
     console.log("temp file is", tempFileId)
   }, [tempFileId])
 
-
+  const location = useLocation();
 
   useEffect(() => {
+    setQuery(searchQuery);
+    console.log("use effect ran");
     handleSearch();
 
     if (findIfMobile()) {
@@ -105,7 +115,7 @@ function App() {
       console.log("pc")
     }
   },
-    [])
+    [location])
 
 
 
@@ -143,7 +153,7 @@ function App() {
             <a href="portal.rcc.edu">MyPortal</a>
             <a href="https://www.norcocollege.edu/articulation/documents/norco-igetc-2024-25.pdf">IGETC</a>
             <a href="https://www.norcocollege.edu/services/counseling/index.html">Counseling</a>
-            <a href="https://mvc.edu/_resources/files/transfer/rccd-associate-degree-requirements.pdf">RCCD GE (Graduation Requirements)</a>
+            <a href="https://mvc.edu/_resources/files/transfer/rccd-associate-degree-requirements.pdf ">RCCD GE (Graduation Requirements)</a>
           </div>
           <div className="">
             <div className="flex space-x-1">
@@ -165,7 +175,7 @@ function App() {
             </div>
             <div className="listing">
               {syllabi.map((syllabus, i) => {
-                return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} professor={syllabus.professor} />
+                return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} length={syllabus.length} professor={syllabus.professor} />
               })}
 
             </div>
@@ -189,13 +199,13 @@ function App() {
               </button></div>
             <button onClick={() => setOpenModal(true)} className=" bg-blue-700 p-1 text-yellow-50 rounded-lg flex flex-row">
               <span className="flex justify-center items-center aspect-square flex-1"><i className="material-symbols-rounded">attach_file</i></span>
-                <span className="text-xs">1 hr</span>
+              <span className="text-xs">1 hr</span>
             </button>
           </div>
 
           <div className="listing">
             {syllabi.map((syllabus, i) => {
-              return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} professor={syllabus.professor} />
+              return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} length={syllabus.length} professor={syllabus.professor} />
             })}
 
           </div>
