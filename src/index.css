@@ -17,6 +17,23 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --dsg-border-color:
+  --dsg-selection-border-color:
+  --dsg-selection-border-radius:
+  --dsg-selection-border-width:
+  --dsg-selection-background-color:
+  --dsg-selection-disabled-border-color:
+  --dsg-selection-disabled-background-color:
+  --dsg-corner-indicator-width:
+  --dsg-header-text-color:
+  --dsg-header-active-text-color:
+  --dsg-cell-background-color:
+  --dsg-cell-disabled-background-color:
+  --dsg-transition-duration:
+  --dsg-expand-rows-indicator-width:
+  --dsg-scroll-shadow-width:
+  --dsg-scroll-shadow-color:
 }
 
 #root {

@@ -150,7 +150,7 @@ function App() {
             </Marquee>
           </div>
           <div className="w-full p-6 flex justify-between text-sm underline">
-            <a href="portal.rcc.edu">MyPortal</a>
+            <a href="https://portal.rcc.edu">MyPortal</a>
             <a href="https://www.norcocollege.edu/articulation/documents/norco-igetc-2024-25.pdf">IGETC</a>
             <a href="https://www.norcocollege.edu/services/counseling/index.html">Counseling</a>
             <a href="https://mvc.edu/_resources/files/transfer/rccd-associate-degree-requirements.pdf ">RCCD GE (Graduation Requirements)</a>

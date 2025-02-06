@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './index.css'
 import App from './App.tsx'
 import View from './View.tsx'
+import Admin from './Admin.tsx'
 
 
 
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/view/:file" element={<View />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
 
