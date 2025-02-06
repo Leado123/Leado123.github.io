@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { DataSheetGrid, textColumn, checkboxColumn, dateColumn, Column, keyColumn, intColumn } from 'react-datasheet-grid';
+import  { useEffect, useState } from "react";
+import { DataSheetGrid, textColumn, checkboxColumn, Column, keyColumn, intColumn } from 'react-datasheet-grid';
 import "react-datasheet-grid/dist/style.css";
-import { useNavigate } from "react-router-dom";
 import { ClassListing } from "./syllabus_comp";
 
 interface PreviewButtonProps {
@@ -9,7 +8,6 @@ interface PreviewButtonProps {
 }
 
 const PreviewButton = ({ fileName }: PreviewButtonProps) => {
-  const navigate = useNavigate();
 
   const handlePreview = () => {
     window.open(`/view/${encodeURIComponent(fileName)}`);
