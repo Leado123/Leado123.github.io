@@ -68,7 +68,7 @@ function Admin() {
   }, [wholeDatabase]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+    <div className="flex flex-col items-center justify-center w-full min-h-screen p-4">
       <div className="text-black mb-4 w-full flex">
         <input
           type="text"
@@ -100,13 +100,15 @@ function Admin() {
             Push Changes
         </button>
       </div>
-      <div className="w-full flex-1 overflow-auto">
+    <div className="flex flex-1 w-full h-full overflow-hidden">
+      <div className=" w-full h-full ">
         <DataSheetGrid
           className="w-full h-full"
           value={wholeDatabase}
           columns={columns}
           onChange={setWholeDatabase}
         />
+      </div>
       </div>
     </div>
   );
