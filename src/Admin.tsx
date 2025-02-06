@@ -43,7 +43,7 @@ function Admin() {
     try {
       let formdata = new FormData();
       formdata.append("username", username);
-      var response = await fetch(`https://api.sharesyllabus.me:4000/admin/wholedatabase`, {
+      var response = await fetch(`https://api.sharesyllabus.me/admin/wholedatabase`, {
         method: "POST",
         body: formdata,
       });
