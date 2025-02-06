@@ -7,7 +7,7 @@ import { Accordion, FileInput } from "flowbite-react";
 
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import Marquee from 'react-fast-marquee';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const classOptions = [ // TODO REMOVE
   { key: "nofilter", label: "No Class Filter" },
@@ -24,6 +24,7 @@ function findIfMobile() {
 }
 
 function App() {
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -40,6 +41,9 @@ function App() {
 
   async function handleSearch() {
     if (query != "") searchQuery = query;
+    if (query === "admin") {
+      navigate('admin');
+    }
     console.log(`searching for ${query}`);
     try {
       if (searchQuery === "") {
