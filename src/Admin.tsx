@@ -15,7 +15,7 @@ const PreviewButton = ({ fileName }: PreviewButtonProps) => {
 
   return (
     <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={handlePreview}>
-      Preview
+      preview
     </button>
   );
 };
