@@ -2,7 +2,6 @@ import  { useEffect, useState } from "react";
 import { DataSheetGrid, textColumn, checkboxColumn, Column, keyColumn, intColumn } from 'react-datasheet-grid';
 import "react-datasheet-grid/dist/style.css";
 import { ClassListing } from "./syllabus_comp";
-import { Link } from "react-router-dom";
 
 interface PreviewButtonProps {
   fileName: string;
