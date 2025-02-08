@@ -79,6 +79,8 @@ function Admin() {
                 console.log("error");
             }
       })
+
+        console.log(response);
       });
     } catch {
       console.log("error");
