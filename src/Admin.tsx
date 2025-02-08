@@ -10,7 +10,7 @@ interface PreviewButtonProps {
 const PreviewButton = ({ fileName }: PreviewButtonProps) => {
 
   const handlePreview = () => {
-    const url = `/view/${encodeURIComponent(fileName)}`;
+    const url = `/#/view/${encodeURIComponent(fileName)}`;
     window.open(url, '_blank');
   };
 
