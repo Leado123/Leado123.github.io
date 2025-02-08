@@ -10,10 +10,15 @@ interface PreviewButtonProps {
 
 const PreviewButton = ({ fileName }: PreviewButtonProps) => {
 
+  const handlePreview = () => {
+    const url = `/view/${encodeURIComponent(fileName)}`;
+    window.open(url, '_blank');
+  };
+
   return (
-    <Link to={`/view/${encodeURIComponent(fileName)}`} target="_blank" className="bg-blue-500 text-white px-2 py-1 rounded">
+    <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={handlePreview}>
       Preview
-    </Link>
+    </button>
   );
 };
 
