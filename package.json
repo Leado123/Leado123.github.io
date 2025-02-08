@@ -15,6 +15,7 @@
   "dependencies": {
     "@apollo/client": "^3.12.6",
     "@nextui-org/select": "^2.4.9",
+    "@react-pdf/renderer": "^4.2.1",
     "autoprefixer": "^10.4.20",
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.10.2",

@@ -7,10 +7,18 @@ function findIfMobile() {
 }
 
 function View() {
-
+    
     const isMobile = findIfMobile();
 
+    function checkIfPdf(file: string) {
+        return file.endsWith(".pdf");
+    }
+
     const { file } = useParams();
+
+
+    const isPDF = checkIfPdf(file || "");
+
     const docs = [
         { uri: `https://api.sharesyllabus.me/files/${file}` }
     ]
@@ -44,7 +52,11 @@ function View() {
                     <text className="text-xl text-left font-bold">Preview & Or Download</text>
                 </div>}
             </nav>
-            <DocViewer className="flex-1 w-full rounded-xl" pluginRenderers={DocViewerRenderers} documents={docs}></DocViewer>
+            {isPDF 
+                ? <iframe src={`https://api.sharesyllabus.me/files/${file}`} className="flex-1 w-full rounded-xl"></iframe>
+                : <DocViewer className="flex-1 w-full rounded-xl" pluginRenderers={DocViewerRenderers} documents={docs}></DocViewer>
+                }
+
         </div>
     );
 }

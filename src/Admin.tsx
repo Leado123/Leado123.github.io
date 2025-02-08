@@ -2,6 +2,7 @@ import  { useEffect, useState } from "react";
 import { DataSheetGrid, textColumn, checkboxColumn, Column, keyColumn, intColumn } from 'react-datasheet-grid';
 import "react-datasheet-grid/dist/style.css";
 import { ClassListing } from "./syllabus_comp";
+import { Link } from "react-router-dom";
 
 interface PreviewButtonProps {
   fileName: string;
@@ -9,14 +10,10 @@ interface PreviewButtonProps {
 
 const PreviewButton = ({ fileName }: PreviewButtonProps) => {
 
-  const handlePreview = () => {
-    window.open(`/view/${encodeURIComponent(fileName)}`);
-  };
-
   return (
-    <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={handlePreview}>
-      preview
-    </button>
+    <Link to={`/view/${encodeURIComponent(fileName)}`} target="_blank" className="bg-blue-500 text-white px-2 py-1 rounded">
+      Preview
+    </Link>
   );
 };
 
@@ -57,7 +54,36 @@ function Admin() {
   };
 
   const changeServerDatabase = async () => {
+    try {
+      databaseChanges.forEach(async (change) => {
+
+
+        const {fileName, ...sendableChange} = change;
+
+        var response = await fetch(`https://api.sharesyllabus.me/admin/change/`, {
+          method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+          body: JSON.stringify({
+            username,
+            id: sendableChange.id,
+            data: sendableChange,
+          })
+        }).then((res) => {
+            if (res.ok) {
+                console.log("success");
+                fetchWholeDatabase();
+                alert("success!");
+            } else {
+                console.log("error");
+            }
+      })
+      });
+    } catch {
+      console.log("error");
   }
+}
 
   useEffect(() => {
     const changes = wholeDatabase.filter((item, index) => {

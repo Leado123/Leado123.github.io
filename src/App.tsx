@@ -179,7 +179,7 @@ function App() {
             </div>
             <div className="listing">
               {syllabi.map((syllabus, i) => {
-                return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} length={syllabus.length} professor={syllabus.professor} />
+                return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} classLength={syllabus.classLength} professor={syllabus.professor} />
               })}
 
             </div>
@@ -209,7 +209,7 @@ function App() {
 
           <div className="listing">
             {syllabi.map((syllabus, i) => {
-              return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} length={syllabus.length} professor={syllabus.professor} />
+              return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} classLength={syllabus.classLength} professor={syllabus.professor} />
             })}
 
           </div>
