@@ -16,6 +16,7 @@ function View() {
 
     const { file } = useParams();
 
+    // TODO: make it work on mobile (pdf viewer doesen't work)
 
     const isPDF = checkIfPdf(file || "");
 

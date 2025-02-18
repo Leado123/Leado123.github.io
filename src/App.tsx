@@ -16,6 +16,9 @@ export const classOptions = [ // TODO REMOVE
   { key: "physics", label: "Physics" },
 ];
 
+//TODO: MAKE when you scroll to bottom of page, adds more results
+//TODO: make it so that when you type in stuff, it automatically searches on the server, but there is a tick rate for responses
+
 var searchQuery = "";
 
 function findIfMobile() {
@@ -179,7 +182,7 @@ function App() {
             </div>
             <div className="listing">
               {syllabi.map((syllabus, i) => {
-                return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} classLength={syllabus.classLength} professor={syllabus.professor} />
+                return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} fullClassName={syllabus.fullClassName} textbookCost={syllabus.textbookCost} classLength={syllabus.classLength} professor={syllabus.professor} />
               })}
 
             </div>
@@ -209,7 +212,7 @@ function App() {
 
           <div className="listing">
             {syllabi.map((syllabus, i) => {
-              return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} classLength={syllabus.classLength} professor={syllabus.professor} />
+              return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} fullClassName={syllabus.fullClassName} textbookCost={syllabus.textbookCost} description={syllabus.description} classLength={syllabus.classLength} professor={syllabus.professor} />
             })}
 
           </div>
