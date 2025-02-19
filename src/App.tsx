@@ -19,6 +19,8 @@ export const classOptions = [ // TODO REMOVE
 //TODO: MAKE when you scroll to bottom of page, adds more results
 //TODO: make it so that when you type in stuff, it automatically searches on the server, but there is a tick rate for responses
 
+//TODO: create an ELABORATE WHOLE Uploading syllabus page to make the process easier
+
 var searchQuery = "";
 
 function findIfMobile() {
