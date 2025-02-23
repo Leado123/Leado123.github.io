@@ -14,7 +14,7 @@ export enum TextbookCost {
 // TODO: implement fullClassName and textbook cost in mobile
 
 export interface ClassListing {
-    className: string;
+    className?: string;
     professor: string;
     fileName: string;
     description: string;
@@ -25,6 +25,12 @@ export interface ClassListing {
     mimeType?: string;
     textbookCost?: string;
     fullClassName?: string; 
+    class?: {
+        className?: string;
+        fullClassName?: string;
+        discipline?: string;
+    }
+    professorId?: string;
     id?: string;
 }
 function findIfMobile() {
@@ -55,7 +61,11 @@ function SyllabusListing({ className, professor, fileName, description, classLen
     const navigate = useNavigate();
 
     async function handleView() {
-        navigate(`/view/${encodeURIComponent(`${fileName}`)}`);
+        if (findIfMobile()) {
+            navigate(`/view/${encodeURIComponent(`${fileName}`)}`);
+        } else {
+            navigate(`/syllabus/${encodeURIComponent(`${id}`)}`);
+        }
     }
 
     async function handleFlag() {
@@ -79,10 +89,10 @@ function SyllabusListing({ className, professor, fileName, description, classLen
 
         return (
             <>
-                <div className="w-full flex space-x-4 bg-white text-black rounded-lg p-3" >
+                <div className="w-full border-zinc-800 border hover:bg-zinc-900 flex space-x-4 cursor-pointer text-white rounded-lg p-3" onClick={handleView} >
                     <div className="flex text-left flex-col w-1/4">
                         <span className="font-extrabold">{className}</span>
-                        <span className="text-xs text-gray-600">{fullClassName}</span>
+                        <span className="text-xs text-gray-300">{fullClassName}</span>
                         {textbookCostElement()}
                         <span className="flex-1 italic">{professor}</span>
                         {classLength > 7 ? <span className="text-xs font-light text-green-600">{classLength} weeks course</span> : <span className="text-xs font-light text-red-600">{classLength} weeks course</span>}
@@ -91,11 +101,8 @@ function SyllabusListing({ className, professor, fileName, description, classLen
                         <span className="w-3/4 font-serif">"{description}"</span>
                     </div>
                     <div className="flex flex-col">
-                        <button className="aspect-square flex items-center align-middle justify-center  hover:bg-slate-200 rounded-sm text-black" onClick={handleView}>
-                            <span className="material-symbols-rounded  flex-1 text-2xl">open_in_new</span>
-                        </button>
                         <span className="flex-1"></span>
-                        <button className="aspect-square flex items-center align-middle justify-center  hover:bg-slate-200 rounded-sm text-black" onClick={() => setHideMore(!hideMore)}>
+                        <button className="aspect-square flex items-center align-middle justify-center  hover:bg-slate-200 rounded-sm text-white" onClick={() => setHideMore(!hideMore)}>
                             <span className="material-symbols-rounded text-2xl">more_horiz</span>
                             <div className="relative" hidden={hideMore}>
                                 <button ref={buttonRef} onClick={handleFlag} className="absolute border-black border-2 -left-14 top-2 drop-shadow-lg bg-white rounded-lg aspect-square p-4">

@@ -6,7 +6,7 @@ import SyllabusListing, { ClassListing } from './syllabus_comp';
 import { Accordion, FileInput } from "flowbite-react";
 
 import { Button, Label, Modal, TextInput } from "flowbite-react";
-import Marquee from 'react-fast-marquee';
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const classOptions = [ // TODO REMOVE
@@ -145,51 +145,62 @@ function App() {
   return (
     <>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-      {isMobile === false && <div className="p-10 flex justify-center items-center">
-        <div className="w-1/2">
-          <div className="flex flex-row">
-            <h3 className="text-5xl mb-5 font-bold text-left flex-1">📚 Share Syllabus</h3>
-          </div>
-          <p className="text-left ">
-            A platform for sharing and exploring course syllabi, helping students compare class structures, assignments, and topics while earning community service hours by contributing syllabuses to the knowledge base.</p>
-          <div className="pt-1 text-left flex flex-row space-x-2">
-            <p className="text-xs font-bold">Contacts:</p>
-            <Marquee className="text-xs flex-1" speed={25}>
-              <p className=" "> lwen3@student.rccd.edu 336722@students.cnusd.k12.ca.us College Success Club @college_success_club | here to assist those who wish to know how hard classes are before taking them at Norco College | do you have a computer running linux 24/7 with port forwarding? contact us to help host this website! |</p>
-            </Marquee>
-          </div>
-          <div className="w-full p-6 flex justify-between text-sm underline">
-            <a href="https://portal.rcc.edu">MyPortal</a>
-            <a href="https://www.norcocollege.edu/articulation/documents/norco-igetc-2024-25.pdf">IGETC</a>
-            <a href="https://www.norcocollege.edu/services/counseling/index.html">Counseling</a>
-            <a href="https://mvc.edu/_resources/files/transfer/rccd-associate-degree-requirements.pdf ">RCCD GE (Graduation Requirements)</a>
-          </div>
-          <div className="">
-            <div className="flex space-x-1">
-              <button onClick={() => setOpenModal(true)} className=" bg-blue-700 p-2 text-yellow-50 rounded-lg flex flex-row">
-                <span className="flex justify-center items-center aspect-square flex-1"><i className="material-symbols-rounded">attach_file</i></span>
-                <span className="flex flex-col">            <span className="text-sm">add a syllabus</span>
-                  <span className="text-xs">1 volunteer hours</span></span>
-              </button>
-              <div className="flex-1 flex bg-white rounded-lg">
-                <input type="search" onKeyDown={handleKeyDown} placeholder="search, hit enter or the search button to enter query" className="focus:outline-none bg-transparent border-none flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
+      {isMobile === false && <div className=" flex justify-center items-center">
+        <Tabs className="w-full bg-zinc-950 p-4">
+            <TabList className="flex space-x-2 pb-1">
+              <Tab selectedClassName="rounded-lg p-1 underline decoration-wavy" className=" focus:outline-none p-1 cursor-pointer">Syllabuses</Tab>
+              <Tab selectedClassName="rounded-lg p-1 underline decoration-wavy" className=" focus:outline-none p-1 cursor-pointer">ObjectSearch (In Development)</Tab>
+            </TabList>
 
-                </input>
-                <button className="aspect-square flex justify-center items-center" onClick={handleSearch}>
-                  <span className="material-symbols-rounded text-black">
-                    search
-                  </span>
-                </button></div>
+          <TabPanel>
+            <div className="place-items-center justify-center flex w-full flex-col">
+              <div className="w-full flex space-y-2 flex-col">
+                <div className="flex pt-2">
+                  <div className="flex-1 flex border border-zinc-800  focus:outline-none rounded-lg">
+                    <input type="search" onKeyDown={handleKeyDown} placeholder="search, hit enter or the search button to enter query" className="focus:outline-none focus:ring-0 bg-transparent border-none focus:bg-black rounded-lg flex-1 text-white" value={query} onChange={(e) => setQuery(e.target.value)}>
 
+                    </input>
+                    <button className="aspect-square flex justify-center items-center" onClick={handleSearch}>
+                      <span className="material-symbols-rounded text-white">
+                        search
+                      </span>
+                    </button></div>
+
+                </div>
+                <div className="flex space-x-2">
+                  <div className="text-left">
+                    <text>Filters:</text>
+                    <div className="">
+                      <select className="w-full mb-2 mt-2 bg-black p-1 rounded-lg">
+                        <option>10 results</option>
+                        <option>15 results</option>
+                        <option>20 results</option>
+                      </select>
+                      <span>
+                        <select className="w-full bg-black p-1 rounded-lg" >
+                          <option>all results (unverified too)</option>
+                          <option>verified results only</option>
+                        </select>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex-1">
+
+
+                    <div className="listing">
+                      {syllabi.map((syllabus, i) => {
+                        return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.class?.className} description={syllabus.description} fullClassName={syllabus.class?.fullClassName} textbookCost={syllabus.textbookCost} classLength={syllabus.classLength} professor={syllabus.professor} />
+                      })}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="listing">
-              {syllabi.map((syllabus, i) => {
-                return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.className} description={syllabus.description} fullClassName={syllabus.fullClassName} textbookCost={syllabus.textbookCost} classLength={syllabus.classLength} professor={syllabus.professor} />
-              })}
+          </TabPanel>
+        </Tabs>
 
-            </div>
-          </div>
-        </div>
       </div>}
       {isMobile === true && <div className="p-1 pt-2">
         <h3 className="text-2xl font-bold mb-2">Share Syllabus</h3>
