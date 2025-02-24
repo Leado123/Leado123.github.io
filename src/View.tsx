@@ -1,5 +1,6 @@
 import {  useParams } from "react-router-dom";
 import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
+import {PDFViewer} from 'srpv-js'
 
 
 
@@ -32,6 +33,8 @@ function View({passedFile, className}: ViewParams) {
     ]
 
 
+
+
     console.log(docs[0].uri);
 
     return (
@@ -47,8 +50,9 @@ function View({passedFile, className}: ViewParams) {
                 </div>
 
             </nav>
+            
             {isPDF 
-                ? <iframe src={`https://api.sharesyllabus.me/files/${file}`} className="flex-1 w-full rounded-xl"></iframe>
+                ? <div className="flex-1 w-full rounded-xl"><PDFViewer link={`https://api.sharesyllabus.me/files/${file}`}></PDFViewer></div>
                 : <DocViewer className="flex-1 w-full rounded-xl" pluginRenderers={DocViewerRenderers} documents={docs}></DocViewer>
                 }
 

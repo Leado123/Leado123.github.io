@@ -8,6 +8,8 @@ import { Accordion, FileInput } from "flowbite-react";
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { isMobile } from "is-mobile";
+
 
 export const classOptions = [ // TODO REMOVE
   { key: "nofilter", label: "No Class Filter" },
@@ -23,10 +25,6 @@ export const classOptions = [ // TODO REMOVE
 
 var searchQuery = "";
 
-function findIfMobile() {
-  //return true;
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
 
 function App() {
   const navigate = useNavigate();
@@ -37,7 +35,6 @@ function App() {
   const [tempFileId, setTempFileId] = useState<string>("");
 
   const [file, setFile] = useState<File | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
 
 
   const [syllabi, setSyllabi] = useState<ClassListing[]>([]);
@@ -115,14 +112,7 @@ function App() {
     console.log("use effect ran");
     handleSearch();
 
-    if (findIfMobile()) {
-      // Code for mobile devices
-      setIsMobile(true);
-      console.log("mobile")
-    } else {
-      // Code for desktop devices
-      console.log("pc")
-    }
+
   },
     [location])
 
@@ -145,12 +135,12 @@ function App() {
   return (
     <>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-      {isMobile === false && <div className=" flex justify-center items-center">
+      {isMobile() === false && <div className=" flex justify-center items-center">
         <Tabs className="w-full bg-zinc-950 p-4">
-            <TabList className="flex space-x-2 pb-1">
-              <Tab selectedClassName="rounded-lg p-1 underline decoration-wavy" className=" focus:outline-none p-1 cursor-pointer">Syllabuses</Tab>
-              <Tab selectedClassName="rounded-lg p-1 underline decoration-wavy" className=" focus:outline-none p-1 cursor-pointer">ObjectSearch (In Development)</Tab>
-            </TabList>
+          <TabList className="flex space-x-2 pb-1">
+            <Tab selectedClassName="rounded-lg p-1 underline decoration-wavy" className=" focus:outline-none p-1 cursor-pointer">Syllabuses</Tab>
+            <Tab selectedClassName="rounded-lg p-1 underline decoration-wavy" className=" focus:outline-none p-1 cursor-pointer">ObjectSearch (In Development)</Tab>
+          </TabList>
 
           <TabPanel>
             <div className="place-items-center justify-center flex w-full flex-col">
@@ -190,7 +180,7 @@ function App() {
 
                     <div className="listing">
                       {syllabi.map((syllabus, i) => {
-                        return <SyllabusListing key={i} fileName={syllabus.fileName} className={syllabus.class?.className} description={syllabus.description} fullClassName={syllabus.class?.fullClassName} textbookCost={syllabus.textbookCost} classLength={syllabus.classLength} professor={syllabus.professor} />
+                        return <SyllabusListing key={i} fileName={syllabus.fileName} professorId={syllabus.professorId} className={syllabus.class?.className} description={syllabus.description} fullClassName={syllabus.class?.fullClassName} textbookCost={syllabus.textbookCost} classLength={syllabus.classLength} professor={syllabus.professor} />
                       })}
 
                     </div>
@@ -202,8 +192,7 @@ function App() {
         </Tabs>
 
       </div>}
-      {isMobile === true && <div className="p-1 pt-2">
-        <h3 className="text-2xl font-bold mb-2">Share Syllabus</h3>
+      {isMobile() === true && <div className="p-1 pt-2">
 
         <div className="">
           <div className="flex space-x-1">
@@ -217,10 +206,6 @@ function App() {
                   search
                 </span>
               </button></div>
-            <button onClick={() => setOpenModal(true)} className=" bg-blue-700 p-1 text-yellow-50 rounded-lg flex flex-row">
-              <span className="flex justify-center items-center aspect-square flex-1"><i className="material-symbols-rounded">attach_file</i></span>
-              <span className="text-xs">1 hr</span>
-            </button>
           </div>
 
           <div className="listing">

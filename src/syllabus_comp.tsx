@@ -3,6 +3,7 @@ import "./App.tsx";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import isMobile from "is-mobile";
 
 export enum TextbookCost {
     free,
@@ -33,11 +34,8 @@ export interface ClassListing {
     professorId?: string;
     id?: string;
 }
-function findIfMobile() {
-    //return true;
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-function SyllabusListing({ className, professor, fileName, description, classLength, fullClassName, textbookCost }: ClassListing) {
+
+function SyllabusListing({ className, professor, professorId, fileName, description, classLength, fullClassName, textbookCost }: ClassListing) {
 
     const [hideMore, setHideMore] = useState(true);
 
@@ -61,12 +59,18 @@ function SyllabusListing({ className, professor, fileName, description, classLen
     const navigate = useNavigate();
 
     async function handleView() {
-        if (findIfMobile()) {
+        if (isMobile()) {
             navigate(`/view/${encodeURIComponent(`${fileName}`)}`);
         } else {
             navigate(`/syllabus/${encodeURIComponent(`${id}`)}`);
         }
     }
+
+    /*async function viewProfessor() {
+        navigate(`/professor/${encodeURIComponent
+            (`${professorId}`)}`);
+    }*/
+   console.log(professorId);
 
     async function handleFlag() {
         navigate(`/flag/${encodeURIComponent(`${id}`)}`);
@@ -85,7 +89,7 @@ function SyllabusListing({ className, professor, fileName, description, classLen
     }
 
 
-    if (!findIfMobile()) {
+    if (!isMobile()) {
 
         return (
             <>
@@ -94,7 +98,7 @@ function SyllabusListing({ className, professor, fileName, description, classLen
                         <span className="font-extrabold">{className}</span>
                         <span className="text-xs text-gray-300">{fullClassName}</span>
                         {textbookCostElement()}
-                        <span className="flex-1 italic">{professor}</span>
+                        <span className="flex-1 italic cursor-pointer hover:text-yellow-300 w-min">{professor}</span>
                         {classLength > 7 ? <span className="text-xs font-light text-green-600">{classLength} weeks course</span> : <span className="text-xs font-light text-red-600">{classLength} weeks course</span>}
                     </div>
                     <div className="flex-1 flex flex-col text-center">
@@ -119,16 +123,14 @@ function SyllabusListing({ className, professor, fileName, description, classLen
     } else {
         return (
             <>
-                <div className="w-full flex flex-row text-left bg-white text-black rounded-lg p-3">
+                <div onClick={handleView} className="w-full flex flex-row text-left bg-purple-200 text-black rounded-lg p-3">
                     <div className="flex-1 flex flex-col">
                         <span className=" font-extrabold">{className}</span>
                         <span className="flex-1 italic">{professor}</span>
                         <span className="w-4/5 font-serif">"{description}"</span>
                         {classLength > 7 ? <span className="text-xs font-light text-green-600">{classLength} weeks course</span> : <span className="text-xs font-light text-red-600">{classLength} weeks course</span>}
                     </div>
-                    <button className="flex items-center h-full p-2 rounded-lg bg-slate-200 text-black" onClick={handleView}>
-                        <span className="material-symbols-rounded text-2xl">open_in_new</span>
-                    </button>
+
                 </div>
             </>
         )
