@@ -1,6 +1,7 @@
 import {  useParams } from "react-router-dom";
 import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
 import {PDFViewer} from 'srpv-js'
+import { isMobile } from 'is-mobile';
 
 
 
@@ -50,10 +51,20 @@ function View({passedFile, className}: ViewParams) {
                 </div>
 
             </nav>
+            {isMobile() === false && 
+            <>
+            {isPDF 
+            ? <iframe className="flex-1 w-full rounded-xl" src={`https://api.sharesyllabus.me/files/${file}`} />
+            : <DocViewer className="flex-1 w-full rounded-xl" pluginRenderers={DocViewerRenderers} documents={docs}></DocViewer>}
+            </>
             
+            }
+            {isMobile() === true && 
+            <>
             {isPDF 
                 ? <div className="flex-1 w-full rounded-xl"><PDFViewer link={`https://api.sharesyllabus.me/files/${file}`}></PDFViewer></div>
-                : <DocViewer className="flex-1 w-full rounded-xl" pluginRenderers={DocViewerRenderers} documents={docs}></DocViewer>
+                : <DocViewer className="flex-1 w-full rounded-xl" pluginRenderers={DocViewerRenderers} documents={docs}></DocViewer>}
+            </>
                 }
 
         </div>

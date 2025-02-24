@@ -135,7 +135,7 @@ function App() {
   return (
     <>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-      {isMobile() === false && <div className=" flex justify-center items-center">
+      {isMobile() === false && <div className="w-full flex justify-center items-center">
         <Tabs className="w-full bg-zinc-950 p-4">
           <TabList className="flex space-x-2 pb-1">
             <Tab selectedClassName="rounded-lg p-1 underline decoration-wavy" className=" focus:outline-none p-1 cursor-pointer">Syllabuses</Tab>

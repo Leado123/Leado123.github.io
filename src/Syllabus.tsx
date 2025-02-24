@@ -17,8 +17,8 @@ function Syllabus() {
     }, [id])
 
     return (
-        <div className="p-16 h-full text-left justify-center flex">
-            <div className="text-left place-items-center justify-center flex w-3/4">
+        <div className="p-16 h-full text-left w-full justify-center flex">
+            <div className="text-left place-items-center justify-center flex w-full">
                 <div className="w-1/4 h-full flex flex-col">
                     <div className="flex flex-col">
                         <text className="text-3xl text-yellow-300 font-black">{syllabus?.className}</text>
@@ -30,7 +30,7 @@ function Syllabus() {
                     <text className="font-bold text-lime-500">{syllabus?.textbookCost} textbook cost</text>
 
                 </div>
-                {syllabus ? <View passedFile={syllabus?.fileName}></View> : <div></div>}
+                {syllabus ? <View className="flex-1" passedFile={syllabus?.fileName}></View> : <div></div>}
             </div>
         </div>
     )

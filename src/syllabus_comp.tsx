@@ -98,7 +98,7 @@ function SyllabusListing({ className, professor, professorId, fileName, descript
                         <span className="font-extrabold">{className}</span>
                         <span className="text-xs text-gray-300">{fullClassName}</span>
                         {textbookCostElement()}
-                        <span className="flex-1 italic cursor-pointer hover:text-yellow-300 w-min">{professor}</span>
+                        <span className="flex-1 italic cursor-pointer hover:text-yellow-300 ">{professor}</span>
                         {classLength > 7 ? <span className="text-xs font-light text-green-600">{classLength} weeks course</span> : <span className="text-xs font-light text-red-600">{classLength} weeks course</span>}
                     </div>
                     <div className="flex-1 flex flex-col text-center">
