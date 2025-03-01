@@ -4,7 +4,6 @@ import "./App.tsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import isMobile from "is-mobile";
-import Marquee from "react-fast-marquee";
 
 export enum TextbookCost {
     free,
