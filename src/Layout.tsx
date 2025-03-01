@@ -2,7 +2,6 @@ import Marquee from "react-fast-marquee";
 import { useNavigate } from "react-router-dom";
 import { isMobile } from "is-mobile";
 
-import React, { useState } from "react";
 
 interface BlogPosts {
     title: string;
@@ -18,7 +17,6 @@ function Layout({ children }: { children: React.ReactNode }) {
     console.log('Layout rendering'); // Add this line
 
 
-    const [isOpen, setIsOpen] = useState(true);
 
     const uploadSyllabi = () => {
         navigate('/upload')
