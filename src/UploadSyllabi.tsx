@@ -11,6 +11,7 @@ export interface Class {
 export interface School {
     id: string;
     name: string;
+    fullName: string;
 }
 
 export interface Professor {
@@ -53,8 +54,9 @@ function UploadSyllabi() {
     }
 
     function searchProfessor(e: React.ChangeEvent<HTMLInputElement>) {
-        setProfessor(e.target.value);
-        fetch(`https://api.sharesyllabus.me/search/professor/?q=${professor}&s=${college}`, {
+        const value = e.target.value;
+        setProfessor(value);
+        fetch(`https://api.sharesyllabus.me/search/professor/?q=${value}&s=${college}`, {
             method: "POST",
         }).then((res) => res.json()).then((data) => {
             setProfessorOptions(data);
@@ -101,29 +103,33 @@ function UploadSyllabi() {
         formData.append("createdByName", name);
         formData.append("createdByEmail", email);
 
+        console.log(formData)
+
         fetch("https://api.sharesyllabus.me/create", {
             method: "POST",
             body: formData,
         })
         .then(async (res) => {
-            if (!res.ok) {
-                const errorData = await res.json();
-                throw new Error(errorData.msg || 'Upload failed');
+            if (res.ok) {
+                alert("Syllabus uploaded successfully");
+            } else {
+                const data = await res.json();
+                setError(data.msg);
             }
-            return res.json();
-        })
-        .then((data) => {
-            console.log('Upload successful:', data);
-            // Add success handling here (e.g., show success message, redirect)
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-            setError(error.message);
-        })
-        .finally(() => {
             setIsLoading(false);
-        });
+        })
     }
+
+    useEffect(() => {
+        console.log("college" + college);
+        console.log("class" + classAbrvQuery);
+        console.log(professor);
+        console.log(classLength);
+        console.log(textbookCost);
+        console.log(classDescription);
+        console.log(name);
+        console.log(email);
+    }, [])
 
     return (
         <div className="w-full flex place-items-center justify-center p-10">
@@ -165,7 +171,7 @@ function UploadSyllabi() {
                     <text>Duration of class in weeks: [OPTIONAL: community service hours]</text>
                     <input type="number" className="bg-zinc-800 p-1 rounded-md" value={classLength} onChange={(e) => setClassLength(Number(e.target.value))}></input>
                     <text>Textbook Cost: [OPTIONAL: community service hours]</text>
-                    <select className="bg-zinc-800 p-1 rounded-md" value={textbookCost} onChange={(e) => setTextbookCost(e.target.value)}>
+                    <select className="bg-zinc-800 p-1 rounded-md" value={textbookCost} onChange={(e) => {setTextbookCost(e.target.value); console.log(e.target.value)}}>
                         <option>free</option>
                         <option>cheap</option>
                         <option>moderate</option>

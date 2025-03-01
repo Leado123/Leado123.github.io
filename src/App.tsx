@@ -11,12 +11,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { isMobile } from "is-mobile";
 
 
-export const classOptions = [ // TODO REMOVE
-  { key: "nofilter", label: "No Class Filter" },
-  { key: "psychology", label: "Psych" },
-  { key: "anthropology", label: "Anthropology" },
-  { key: "physics", label: "Physics" },
-];
 
 //TODO: MAKE when you scroll to bottom of page, adds more results
 //TODO: make it so that when you type in stuff, it automatically searches on the server, but there is a tick rate for responses
@@ -168,7 +162,7 @@ function App() {
                       </select>
                       <span>
                         <select className="w-full bg-black p-1 rounded-lg" >
-                          <option>all results (unverified too)</option>
+                          <option>all results (include unverified) </option>
                           <option>verified results only</option>
                         </select>
                       </span>
@@ -180,7 +174,7 @@ function App() {
 
                     <div className="listing">
                       {syllabi.map((syllabus, i) => {
-                        return <SyllabusListing key={i} fileName={syllabus.fileName} professorId={syllabus.professorId} className={syllabus.class?.className} description={syllabus.description} fullClassName={syllabus.class?.fullClassName} textbookCost={syllabus.textbookCost} classLength={syllabus.classLength} professor={syllabus.professor} />
+                        return <SyllabusListing key={i} school={syllabus.school} fileName={syllabus.fileName} professorId={syllabus.professorId} className={syllabus.class?.className} description={syllabus.description} fullClassName={syllabus.class?.fullClassName} textbookCost={syllabus.textbookCost} classLength={syllabus.classLength} professor={syllabus.professor} />
                       })}
 
                     </div>

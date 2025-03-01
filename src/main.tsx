@@ -11,6 +11,7 @@ import Layout from './Layout.tsx';
 import UploadSyllabi from './UploadSyllabi.tsx';
 import Professor from './Professor.tsx';
 
+
 createRoot(document.getElementById('root')!).render(
   <HashRouter>
     <Routes>

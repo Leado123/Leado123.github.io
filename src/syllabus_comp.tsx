@@ -4,6 +4,7 @@ import "./App.tsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import isMobile from "is-mobile";
+import Marquee from "react-fast-marquee";
 
 export enum TextbookCost {
     free,
@@ -31,11 +32,16 @@ export interface ClassListing {
         fullClassName?: string;
         discipline?: string;
     }
+    school?: {
+        id: string;
+        name: string;
+        fullName: string;
+    }
     professorId?: string;
     id?: string;
 }
 
-function SyllabusListing({ className, professor, professorId, fileName, description, classLength, fullClassName, textbookCost }: ClassListing) {
+function SyllabusListing({ className, school, professor, professorId, fileName, description, classLength, fullClassName, textbookCost }: ClassListing) {
 
     const [hideMore, setHideMore] = useState(true);
 
@@ -93,10 +99,13 @@ function SyllabusListing({ className, professor, professorId, fileName, descript
 
         return (
             <>
-                <div className="w-full border-zinc-800 border hover:bg-zinc-900 flex space-x-4 cursor-pointer text-white rounded-lg p-3" onClick={handleView} >
+                <div className="w-full border-zinc-800 border hover:bg-zinc-900 flex gap-4 cursor-pointer text-white rounded-lg p-3" onClick={handleView} >
                     <div className="flex text-left flex-col w-1/4">
                         <span className="font-extrabold">{className}</span>
                         <span className="text-xs text-gray-300">{fullClassName}</span>
+                        <div className="flex text-gray-300 text-xs">
+                            <text>🏫 {school?.fullName}</text>
+                        </div>
                         {textbookCostElement()}
                         <span className="flex-1 italic cursor-pointer hover:text-yellow-300 ">{professor}</span>
                         {classLength > 7 ? <span className="text-xs font-light text-green-600">{classLength} weeks course</span> : <span className="text-xs font-light text-red-600">{classLength} weeks course</span>}
