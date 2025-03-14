@@ -1,5 +1,5 @@
-import "./syllabuslisting.css";
-import "./App.tsx";
+import "../syllabuslisting.css";
+import "../pages/App.tsx";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -19,6 +19,7 @@ export interface ClassListing {
     professor: string;
     fileName: string;
     description: string;
+    content?: string;
     classLength: number;
     reviewed?: boolean;
     createdByName?: string;
@@ -98,11 +99,11 @@ function SyllabusListing({ className, school, professor, professorId, fileName, 
 
         return (
             <>
-                <div className="w-full border-zinc-800 border hover:bg-zinc-900 flex gap-4 cursor-pointer text-white rounded-lg p-3" onClick={handleView} >
+                <div className="w-full border-gray-400 border flex gap-4 cursor-pointer text-[#051008] rounded-lg p-3" onClick={handleView} >
                     <div className="flex text-left flex-col w-1/4">
                         <span className="font-extrabold">{className}</span>
-                        <span className="text-xs text-gray-300">{fullClassName}</span>
-                        <div className="flex text-gray-300 text-xs">
+                        <span className="text-xs text-gray-800">{fullClassName}</span>
+                        <div className="flex text-gray-800 text-xs">
                             <text>🏫 {school?.fullName}</text>
                         </div>
                         {textbookCostElement()}
@@ -114,7 +115,7 @@ function SyllabusListing({ className, school, professor, professorId, fileName, 
                     </div>
                     <div className="flex flex-col">
                         <span className="flex-1"></span>
-                        <button className="aspect-square flex items-center align-middle justify-center  hover:bg-slate-200 rounded-sm text-white" onClick={() => setHideMore(!hideMore)}>
+                        <button className="aspect-square flex items-center align-middle justify-center rounded-sm text-[#051008]" onClick={() => setHideMore(!hideMore)}>
                             <span className="material-symbols-rounded text-2xl">more_horiz</span>
                             <div className="relative" hidden={hideMore}>
                                 <button ref={buttonRef} onClick={handleFlag} className="absolute border-black border-2 -left-14 top-2 drop-shadow-lg bg-white rounded-lg aspect-square p-4">

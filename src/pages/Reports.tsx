@@ -1,6 +1,6 @@
 import mime from "mime-types";
 import { useEffect, useState } from "react";
-import { ClassListing } from "./syllabus_comp";
+import { ClassListing } from "./components/syllabus_comp";
 
 export interface SyllabusReport {
     id: string;
@@ -17,7 +17,7 @@ function Reports() {
     const [reports, setReports] = useState<SyllabusReport[]>([]);
 
     function obtainReports() {
-        fetch("https://api.sharesyllabus.me/admin/getreports", {
+        fetch(`${server}/admin/getreports`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -26,7 +26,6 @@ function Reports() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 setReports(data);
             })
             .catch((e) => {
@@ -45,7 +44,7 @@ function Reports() {
 
     function viewReport(sId: string, report: SyllabusReport) {
         setCurrentReport(report);
-        fetch(`https://api.sharesyllabus.me/admin/getsyllabus/${sId}`, {
+        fetch(`${server}/admin/getsyllabus/${sId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -54,7 +53,6 @@ function Reports() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 setCurrentSyllabus(data);
             })
             .catch((e) => {

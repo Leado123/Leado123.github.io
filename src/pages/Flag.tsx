@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import server from '../main'
+
 
 function Flag() {
 
@@ -11,7 +13,7 @@ function Flag() {
     const [reportBy, setReportBy] = useState("");
 
     function submitReport() {
-        fetch(`https://api.sharesyllabus.me/report/${syllabusId}`, {
+        fetch(`${server}/report/${syllabusId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -2,6 +2,7 @@ import {  useParams } from "react-router-dom";
 import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
 import {PDFViewer} from 'srpv-js'
 import { isMobile } from 'is-mobile';
+import server from "../main";
 
 
 
@@ -30,7 +31,7 @@ function View({passedFile, className}: ViewParams) {
     const isPDF = checkIfPdf(file || "");
 
     const docs = [
-        { uri: `https://api.sharesyllabus.me/files/${file}` }
+        { uri: `${server}/files/${file}` }
     ]
 
 
@@ -54,7 +55,7 @@ function View({passedFile, className}: ViewParams) {
             {isMobile() === false && 
             <>
             {isPDF 
-            ? <iframe className="flex-1 w-full rounded-xl" src={`https://api.sharesyllabus.me/files/${file}`} />
+            ? <iframe className="flex-1 w-full rounded-xl" src={`${server}/files/${file}`} />
             : <DocViewer className="flex-1 w-full rounded-xl" pluginRenderers={DocViewerRenderers} documents={docs}></DocViewer>}
             </>
             
@@ -62,7 +63,7 @@ function View({passedFile, className}: ViewParams) {
             {isMobile() === true && 
             <>
             {isPDF 
-                ? <div className="flex-1 w-full rounded-xl"><PDFViewer link={`https://api.sharesyllabus.me/files/${file}`}></PDFViewer></div>
+                ? <div className="flex-1 w-full rounded-xl"><PDFViewer link={`${server}/files/${file}`}></PDFViewer></div>
                 : <DocViewer className="flex-1 w-full rounded-xl" pluginRenderers={DocViewerRenderers} documents={docs}></DocViewer>}
             </>
                 }

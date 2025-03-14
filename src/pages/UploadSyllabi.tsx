@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
 export interface Class {
     id: number;
     className: string;
@@ -20,7 +19,6 @@ export interface Professor {
 }
 
 function UploadSyllabi() {
-
     const [file, setFile] = useState<File | null>(null);
     const [college, setCollege] = useState("");
     const [professor, setProfessor] = useState("");
@@ -40,7 +38,7 @@ function UploadSyllabi() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch("https://api.sharesyllabus.me/schools", {
+        fetch(`https://api.sharesyllabus.me/schools`, {
             method: "GET",
         }).then((res) => res.json()).then((data) => {
             setCollegeOptions(data);
@@ -56,19 +54,17 @@ function UploadSyllabi() {
     function searchProfessor(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         setProfessor(value);
-        fetch(`https://api.sharesyllabus.me/search/professor/?q=${value}&s=${college}`, {
+        fetch(`https:/search/professor/?q=${value}&s=${college}`, {
             method: "POST",
         }).then((res) => res.json()).then((data) => {
             setProfessorOptions(data);
-        }
-        )
+        });
     }
 
     function searchClassAbrv(e: React.ChangeEvent<HTMLInputElement>) {
         setClassAbrvQuery(e.target.value);
 
-
-        fetch(`https://api.sharesyllabus.me/search/class/?q=${classAbrvQuery}&s=${college}`, {
+        fetch(`${server}/search/class/?q=${classAbrvQuery}&s=${college}`, {
             method: "POST",
         }).then((res) => res.json()).then((data) => {
             setClassAbrvOptions(data);
@@ -103,9 +99,9 @@ function UploadSyllabi() {
         formData.append("createdByName", name);
         formData.append("createdByEmail", email);
 
-        console.log(formData)
+        console.log(formData);
 
-        fetch("https://api.sharesyllabus.me/create", {
+        fetch(`https://api.sharesyllabus.me/create`, {
             method: "POST",
             body: formData,
         })
@@ -117,7 +113,7 @@ function UploadSyllabi() {
                 setError(data.msg);
             }
             setIsLoading(false);
-        })
+        });
     }
 
     useEffect(() => {
@@ -129,17 +125,16 @@ function UploadSyllabi() {
         console.log(classDescription);
         console.log(name);
         console.log(email);
-    }, [])
+    }, []);
 
     return (
         <div className="w-full flex place-items-center justify-center p-10">
-
             <div className="w-1/2 text-left flex flex-col">
                 <text className="text-3xl font-bold">Upload a Syllabus!</text>
                 <text className="italic">If you complete all the information you can receive 2 hrs in community service. Just send us your email so we can give you an E-signature of your hours. If you dont want to do the community service hours, feel free to leave some fields blank.</text>
                 <div className="flex flex-col pt-2 gap-2">
                     <text>Syllabus (pdf, docx, etc.)</text>
-                    <input type="file" className="bg-zinc-800 w-min rounded-md" onChange={handleFileChange}></input>
+                    <input type="file" className="w-min rounded-md bg-white text-black" onChange={handleFileChange}></input>
                     <text>College District (not school!):</text>
                     <input
                         list="collegeOptions"
@@ -147,7 +142,7 @@ function UploadSyllabi() {
                         onChange={(e) => setCollege(e.target.value)}
                         placeholder="Search or select college district"
                         required
-                        className="p-1 rounded-md"
+                        className="p-1 rounded-md bg-white text-black border"
                     />
                     <datalist id="collegeOptions">
                         {collegeOptions.map((college: School, index: number) => (
@@ -155,34 +150,34 @@ function UploadSyllabi() {
                         ))}
                     </datalist>
                     <text>Class Name:</text>
-                    <input list="classAbrvOptions" className="p-1 rounded-md" placeholder="i.e.: ENG-1A" value={classAbrvQuery} disabled={!college} onChange={(e) => searchClassAbrv(e)} required onInput={(e) => setClassAbrvQuery(e.currentTarget.value)} />
+                    <input list="classAbrvOptions" className="p-1 rounded-md border bg-white text-black" placeholder="i.e.: ENG-1A" value={classAbrvQuery} disabled={!college} onChange={(e) => searchClassAbrv(e)} required onInput={(e) => setClassAbrvQuery(e.currentTarget.value)} />
                     <datalist id="classAbrvOptions" className="w-full bg-white">
                         {classAbrvOptions?.map((classOption, index) => (
                             <option key={index} value={classOption.className} />
                         ))}
                     </datalist>
                     <text>Professor:</text>
-                    <input placeholder="enter or search professor" className="p-1 rounded-md" list="professorOptions" value={professor} disabled={!college} required onChange={searchProfessor}></input>
+                    <input placeholder="enter or search professor" className="p-1 rounded-md bg-white border text-black" list="professorOptions" value={professor} disabled={!college} required onChange={searchProfessor}></input>
                     <datalist id="professorOptions">
                         {professorOptions.map((professor, index) => (
                             <option key={index} value={professor.name} />
                         ))}
                     </datalist>
                     <text>Duration of class in weeks: [OPTIONAL: community service hours]</text>
-                    <input type="number" className="bg-zinc-800 p-1 rounded-md" value={classLength} onChange={(e) => setClassLength(Number(e.target.value))}></input>
+                    <input type="number" className="p-1 rounded-md bg-white text-black" value={classLength} onChange={(e) => setClassLength(Number(e.target.value))}></input>
                     <text>Textbook Cost: [OPTIONAL: community service hours]</text>
-                    <select className="bg-zinc-800 p-1 rounded-md" value={textbookCost} onChange={(e) => {setTextbookCost(e.target.value); console.log(e.target.value)}}>
+                    <select className="p-1 rounded-md bg-white text-black" value={textbookCost} onChange={(e) => {setTextbookCost(e.target.value); console.log(e.target.value)}}>
                         <option>free</option>
                         <option>cheap</option>
                         <option>moderate</option>
                         <option>expensive</option>
                     </select>
                     <text>Class description in at most 2 sentences (NOT a description of the teacher) [OPTIONAL: community service hours]:</text>
-                    <textarea className="bg-zinc-800 p-1 rounded-md" value={classDescription} onChange={(e) => setClassDescription(e.target.value)}></textarea>
+                    <textarea className="p-1 rounded-md bg-white text-black" value={classDescription} onChange={(e) => setClassDescription(e.target.value)}></textarea>
                     <text>Your Name [OPTIONAL: community service hours]</text>
-                    <input placeholder="John Doe" className="bg-zinc-800 p-1 rounded-md" value={name} onChange={(e) => setName(e.target.value)}></input>
+                    <input placeholder="John Doe" className="p-1 rounded-md bg-white border text-black" value={name} onChange={(e) => setName(e.target.value)}></input>
                     <text>Your Email [OPTIONAL: community service hours]</text>
-                    <input placeholder="example@company.com" className="bg-zinc-800 p-1 rounded-md" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                    <input placeholder="example@company.com" className="p-1 rounded-md border bg-white text-black" value={email} onChange={(e) => setEmail(e.target.value)}></input>
                     <div className="text-right">
                         <button 
                             className="bg-blue-600 rounded-lg p-2 disabled:opacity-50" 

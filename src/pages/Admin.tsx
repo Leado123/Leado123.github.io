@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { DataSheetGrid, textColumn, checkboxColumn, Column, keyColumn, intColumn } from 'react-datasheet-grid';
 import "react-datasheet-grid/dist/style.css";
-import { ClassListing } from "./syllabus_comp";
+import { ClassListing } from "../components/syllabus_comp";
 import { useParams } from "react-router-dom";
+import server from '../main'
 
 
 interface PreviewButtonProps {
@@ -57,7 +58,7 @@ function Admin() {
       try {
         let formdata = new FormData();
         formdata.append("username", username);
-        const response = await fetch(`https://api.sharesyllabus.me/admin/wholedatabase`, {
+        const response = await fetch(`${server}/admin/wholedatabase`, {
           method: "POST",
           body: formdata,
         });
@@ -71,7 +72,7 @@ function Admin() {
     } else {
       try {
         console.log(highlightedSyllabusId);
-        const response = await fetch(`https://api.sharesyllabus.me/syllabus/${highlightedSyllabusId}`, {
+        const response = await fetch(`${server}/syllabus/${highlightedSyllabusId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -92,7 +93,7 @@ function Admin() {
       for (const change of databaseChanges) {
         const { fileName, ...sendableChange } = change;
 
-        const response = await fetch(`https://api.sharesyllabus.me/admin/change/`, {
+        const response = await fetch(`${server}/admin/change/`, {
           method: "POST",
           headers: {
             'Content-Type': 'application/json'

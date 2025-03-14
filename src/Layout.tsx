@@ -1,6 +1,7 @@
 import Marquee from "react-fast-marquee";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { isMobile } from "is-mobile";
+import { useState } from "react";
 
 
 interface BlogPosts {
@@ -9,14 +10,14 @@ interface BlogPosts {
     link: string;
 }
 
-export const blogPosts: BlogPosts[] = [{ title: "What is 𝐒𝐡𝐚𝐫𝐞 𝐌𝐲 𝐒𝐲𝐥𝐥𝐚𝐛𝐮𝐬 & why is it 𝖇𝖊𝖙𝖙𝖊𝖗 than ℝ𝕒𝕥𝕖 𝕄𝕪 ℙ𝕣𝕠𝕗𝕖𝕤𝕤𝕠𝕣?", icon: "star", link: "/useful_resources" },{ title: "🆄🆂🅴🅵🆄🅻 resources to not miss out for highschool & college students!", icon: "bolt", link: "/useful_resources" }]
+export const blogPosts: BlogPosts[] = [{ title: "What is 𝐒𝐡𝐚𝐫𝐞 𝐌𝐲 𝐒𝐲𝐥𝐥𝐚𝐛𝐮𝐬 & why is it 𝖇𝖊𝖙𝖙𝖊𝖗 than ℝ𝕒𝕥𝕖 𝕄𝕪 ℙ𝕣𝕠𝕗𝕖𝕤𝕤𝕠𝕣?", icon: "star", link: "/useful_resources" }, { title: "🆄🆂🅴🅵🆄🅻 resources to not miss out for highschool & college students!", icon: "bolt", link: "/useful_resources" }]
 
 function Layout({ children }: { children: React.ReactNode }) {
     const navigate = useNavigate();
 
     console.log('Layout rendering'); // Add this line
 
-
+    const [marqueeSpeed, setMarqueeSpeed] = useState(15);
 
     const uploadSyllabi = () => {
         navigate('/upload')
@@ -24,37 +25,37 @@ function Layout({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <>
-            <div className={`place-items-center justify-center border-b-2 ${isMobile() ? "pt-0 flex" : "pt-4  grid grid-cols-5"} border-purple-500`}>
-                <div></div>
-                <div className={`${isMobile() ? "w-full" : "col-span-3"} p-4`}>
-                    <div className="flex flex-row">
-                        <h3 onClick={() => { navigate("/") }} className="text-4xl hover:text-yellow-400 w-min cursor-pointer text-yellow-300 font-extrabold text-left flex-1">📚 Share Syllabus <text className="font-light text-purple-600">beta</text></h3>
+        <div className="bg-[#fcfffd] text-[#051008] w-full h-full">
+            <div className={`w-full text-left p-1 flex  place-items-center justify-center border-b border-gray-300 `}>
+                <div className="flex-1 gap-4 place-items-center sticky grid grid-cols-3">
+                    <text onClick={(e) => navigate("/")} className="text-xl text-[#29a847] cursor-pointer hover:drop-shadow-md font-extrabold flex-1 font-bol">📚 Share My Syllabus <span className="font-light text-purple-600">beta</span></text>
+                    <div className="flex-1 flex place-items-center text-center">
+                        <span className="material-symbols-rounded p-1 text-black">web_traffic</span>
+                        <button onClick={(e) => navigate("/upload")} className="p-1 rounded-full anim-enter-width hover:drop-shadow-xl hover:bg-slate-950  font-[Parkinsans] pl-2 pr-2 font-bold bg-black">
+                            <Marquee className="anim-enter-blur w-40" delay={1} gradient={true} gradientWidth="10%" gradientColor="black" speed={marqueeSpeed}>
+                                <div className="flex gap-1">
+                                    <span className="bg-blue-800 pl-2 gap-2 pr-2 rounded-md flex">
+                                        <span className="text-white font-sans">Click to Share A Syllabus!</span>
+                                        
+                                    </span>
+                                    <span className="material-symbols-rounded text-white">web_traffic</span>
+                                    <span className="bg-purple-700 pl-2 gap-2 pr-2 place-items-center rounded-md flex">
+                                        <span className="text-white font-bold font-sans">Sharying a syllabus awards 2 volunteer hours</span>
+                                    </span>
+                                    <span className="material-symbols-rounded pr-1 text-white">web_traffic</span>
+                                </div>
+                            </Marquee>
+                        </button>
+                        <span className="material-symbols-rounded p-1 text-black">add</span>
                     </div>
-                    {!isMobile() && (
-                        <p className="text-left">
-                            A platform for sharing and exploring course syllabi, helping students compare class structures, assignments, and topics while earning community service hours by contributing syllabuses to the knowledge base.
-                        </p>
-                    )}
-                    <div className="pt-1 text-left flex flex-row space-x-2">
-                        <p className="text-xs font-bold">Contacts:</p>
-                        <Marquee className="text-xs flex-1" speed={25}>
-                            <p className="">Are you from a college outside of RCCD? Contact lwen3@student.rccd.edu to get your school listed</p>
-                        </Marquee>
-                    </div>
-
-                    <div className={`w-full ${isMobile() ? "p-0" : "p-4"} flex place-items-center justify-between text-sm`}>
-                        <a href="https://shaded-yttrium-0dc.notion.site/Share-Syllabus-Blog-1a98dea271f580a4aa48fd791a8c83da?pvs=74">Blog</a>
-                        <a href="https://shaded-yttrium-0dc.notion.site/About-ShareSyllabus-me-1a98dea271f580cf9162f61b22e7454a">About Share Syllabus</a>
-                        <a href="https://assist.org">Assist.org</a>
-                        {!isMobile() && <button onClick={uploadSyllabi} className={`bg-blue-600 hover:bg-blue-700 border-yellow-300 border-2 flex place-items-center justify-center text-white rounded-lg font-bold p-2`}><span className="pr-1 material-symbols-rounded">add_circle</span>Upload a Syllabus</button>}
-
+                    <div className="flex gap-4 font-light text-gray-600">
+                        <Link to="/moderator" className=" text-gray-600">Moderator Panel</Link>
+                        <Link to="/blog" className="text-gray-600">Blog</Link>
                     </div>
                 </div>
-                <div></div>
             </div>
             {children}
-        </>
+        </div>
     )
 }
 
