@@ -106,7 +106,7 @@ function Welcome() {
         <div className={`w-full text-left h-full bg-[#fafdfb] gap-2 text-[#051008] place-items-center ${!isMobile() ? "p-32" : "p-4"} flex flex-col`}>
 
             {!isMobile() &&
-                <div>
+                <div className="flex-1 flex flex-col place-items-center gap-2">
                     <h1 className="font-[Parkinsans] text-5xl w-2/3 font-extrabold">📚 Enter your <span className="text-[#47c068]"> School District, Course Name, or Professor's Name, </span> to begin!</h1>
 
                     <Select

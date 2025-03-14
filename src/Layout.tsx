@@ -16,8 +16,8 @@ function Layout({ children }: { children: React.ReactNode }) {
 
     return (
         <div className="bg-[#fcfffd] text-[#051008] w-full h-full">
-            <div className={`w-full text-left p-1 flex  place-items-center justify-center border-b border-gray-300 `}>
-                <div className={`flex-1 gap-4 place-items-center sticky ${!isMobile() ? "grid grid-cols-3" : "flex"}`}>
+            <div className={`w-full text-left p-1 flex place-items-center justify-center border-b border-gray-300`}>
+                <div className={`flex-1 gap-4 place-items-center ${!isMobile() ? "flex" : "flex flex-col"}`}>
                     {isMobile() ?
                         <button onClick={() => navigate("/upload")} className="p-1 flex-1 rounded-full  hover:drop-shadow-xl hover:bg-slate-950  font-[Parkinsans] pl-2 pr-2 font-bold bg-black">
                             <Marquee className="anim-enter-blur max-w-screen" delay={1} gradient={true} gradientWidth="10%" gradientColor="black" speed={15}>
@@ -34,7 +34,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                                 </div>
                             </Marquee>
                         </button> :
-                        <div>
+                        <div className="flex-1 grid grid-cols-3 gap-4 place-items-center">
                             <text onClick={() => navigate("/")} className="text-xl text-[#29a847] cursor-pointer hover:drop-shadow-md font-extrabold flex-1 font-bol">📚 Share My Syllabus <span className="font-light text-purple-600">beta</span></text>
                             <div className="flex-1 flex place-items-center text-center">
                                 <span className="material-symbols-rounded p-1 text-black">web_traffic</span>
