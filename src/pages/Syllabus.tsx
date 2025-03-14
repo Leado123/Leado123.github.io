@@ -2,13 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ClassListing } from "../components/syllabus_comp";
 import FileView from "../components/FileView";
-import { MarkdownView } from "../components/MarkdownView";
-import { G4F } from "g4f"
+
 import server from '../main'
 
 
-import { MDXEditor } from '@mdxeditor/editor'
-import { headingsPlugin } from '@mdxeditor/editor'
 
 function Syllabus() {
     const { id } = useParams();
@@ -39,7 +36,7 @@ function Syllabus() {
                 </div>
                 <div className="relative flex-1 h-full">
                     <div className="relative z-10 flex-1 h-full">
-                        <MDXEditor className="flex-1 h-full text-3xl text-black font-bold font-[Parkinsans] text-center" markdown={`${syllabus?.content}`} plugins={[headingsPlugin()]} readOnly></MDXEditor>
+                        <text>quick overview feature added soon</text>
                     </div>
                 </div>
             </div>

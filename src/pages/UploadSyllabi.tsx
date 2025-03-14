@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import server from "../main";
 
 export interface Class {
     id: number;

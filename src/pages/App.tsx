@@ -1,16 +1,14 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 import SyllabusListing, { ClassListing } from '../components/syllabus_comp';
 
-import { Accordion, FileInput, } from "flowbite-react";
 
 import server from '../main'
 
 import Select from "react-select"
 import AsyncSelect from "react-select/async";
 
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { isMobile } from "is-mobile";
 import { useParams } from 'react-router-dom';
@@ -25,15 +23,10 @@ interface Filter {
 
 function App() {
   const navigate = useNavigate();
-  const [openModal, setOpenModal] = useState(false);
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [accordionOpen, setAccordionOpen] = useState(false);
-  const [tempFileId, setTempFileId] = useState<string>("");
+
 
   const [querying, setQuerying] = useState(false);
 
-  const [file, setFile] = useState<File | null>(null);
 
   const [filter, setFilter] = useState<Filter>({});
 
@@ -99,46 +92,8 @@ function App() {
     }
   }
 
-  function onCloseModal() {
-    setOpenModal(false);
-    setEmail('');
-    setName('');
-    setFile(null);
-    setAccordionOpen(false);
-  }
 
-  function uploadFile() {
-    let formdata = new FormData();
 
-    if (file === null) {
-      alert("File not uploaded");
-      throw new Error("File not uploaded");
-    }
-    formdata.append("upload", file);
-    formdata.append("email", email);
-    formdata.append("name", name);
-    fetch(`${server}/create`, {
-      method: 'POST',
-      body: formdata,
-    })
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.statusText}`);
-        }
-        setAccordionOpen(true);
-        let data = await response.json();
-        setTempFileId(data.fileId);
-        setOpenModal(false);
-        alert("Upload successful! You will receive an email with your volunteer hours within 3 days.");
-      })
-      .catch((error) => {
-        console.error("Upload failed:", error);
-        alert("Upload failed: " + error.message);
-      });
-  }
-
-  useEffect(() => {
-  }, [tempFileId])
 
   const location = useLocation();
 
@@ -160,13 +115,7 @@ function App() {
   },
     [location])
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files === null) return
-    if (e.target.files[0] === null) return
 
-    setFile(e.target.files[0]);
-    setAccordionOpen(true);
-  }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {

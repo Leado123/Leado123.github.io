@@ -1,6 +1,7 @@
 import mime from "mime-types";
 import { useEffect, useState } from "react";
-import { ClassListing } from "./components/syllabus_comp";
+import { ClassListing } from "../components/syllabus_comp";
+import server from "../main";
 
 export interface SyllabusReport {
     id: string;
