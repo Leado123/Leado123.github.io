@@ -6,6 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "blog:dev": "vitepress dev blog",
+    "blog:build": "vitepress build blog",
+    "generate-articles-json": "node scripts/generate-articles-json.ts",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -14,6 +17,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.12.6",
+    "@jcamp/vitepress-blog-theme": "^0.3.0",
     "@mdxeditor/editor": "^3.25.1",
     "@million/lint": "latest",
     "@nextui-org/select": "^2.4.9",
@@ -31,6 +35,7 @@
     "g4f": "^1.4.6",
     "gh-pages": "^6.3.0",
     "graphql": "^16.10.0",
+    "gray-matter": "^4.0.3",
     "is-mobile": "^5.0.0",
     "million": "^3.1.11",
     "mime-types": "^2.1.35",
@@ -51,7 +56,8 @@
     "react-tabs": "^6.1.0",
     "remark-gfm": "^4.0.1",
     "srpv-js": "^1.0.16",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "vitepress": "^1.6.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
