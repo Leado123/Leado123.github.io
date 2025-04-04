@@ -1,5 +1,5 @@
 import "../syllabuslisting.css";
-import "../pages/App.tsx";
+import "../App.tsx";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -99,7 +99,7 @@ function SyllabusListing({ className, school, professor, professorId, fileName, 
 
         return (
             <>
-                <div className="w-full border-gray-400 border flex gap-4 cursor-pointer text-[#051008] rounded-lg p-3" onClick={handleView} >
+                <div className="w-full border-gray-400 bg-[rgba(255,255,255,0.7)] border flex gap-4 cursor-pointer text-[#051008] rounded-lg p-3 backdrop-blur-md" onClick={handleView} >
                     <div className="flex text-left flex-col w-1/4">
                         <span className="font-extrabold">{className}</span>
                         <span className="text-xs text-gray-800">{fullClassName}</span>
@@ -111,7 +111,7 @@ function SyllabusListing({ className, school, professor, professorId, fileName, 
                         {classLength > 7 ? <span className="text-xs font-light text-green-600">{classLength} weeks course</span> : <span className="text-xs font-light text-red-600">{classLength} weeks course</span>}
                     </div>
                     <div className="flex-1 flex flex-col text-center">
-                        <span className="w-3/4 font-serif">"{description}"</span>
+                        <span className="font-serif">"{description}"</span>
                     </div>
                     <div className="flex flex-col">
                         <span className="flex-1"></span>

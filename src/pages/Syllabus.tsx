@@ -25,7 +25,7 @@ function Syllabus() {
             <div className="text-left place-items-center justify-center flex w-3/4">
                 <div className="w-2/5 h-full flex flex-col">
                     <div className="flex flex-col">
-                        <text className="text-3xl text-red-400 font-[Parkinsans] font-black">{syllabus?.className}</text>
+                        <text className="text-3xl text-red-400 font-black">{syllabus?.className}</text>
                         <text className="">{syllabus?.fullClassName}</text>
                         <text className="italic underline">{syllabus?.professor}</text>
                     </div>
