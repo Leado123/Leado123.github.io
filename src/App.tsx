@@ -27,7 +27,6 @@ interface Filter {
 }
 
 function App() {
-  const navigate = useNavigate();
 
 
   const [querying, setQuerying] = useState(false);
@@ -45,7 +44,6 @@ function App() {
   const { college, professor, class: classParam } = useParams();
 
   const [collegeOptions, setCollegeOptions] = useState<School[]>([]);
-  const [initialSearchPerformed, setInitialSearchPerformed] = useState(false);
 
   useEffect(() => {
     if (college) {
