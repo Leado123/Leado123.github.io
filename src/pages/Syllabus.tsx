@@ -14,10 +14,11 @@ function Syllabus() {
     const [syllabus, getSyllabus] = useState<ClassListing | undefined>(undefined);
 
     useEffect(() => {
+        console.log(`${server}/syllabus/${id}`)
         fetch(`${server}/syllabus/${id}`)
             .then(response => response.json())
             .then(data => getSyllabus(data))
-            .then(data => console.log(data))
+            .then(data => console.log(data + "data"))
     }, [id]);
 
     return (

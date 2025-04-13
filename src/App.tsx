@@ -32,7 +32,7 @@ function App() {
 
   const [querying, setQuerying] = useState(false);
 
-  const [initialized, setIntialized] = useState(false);
+  const [initialized, setInitialized] = useState(false);
 
 
   const [filter, setFilter] = useState<Filter>({});
@@ -59,49 +59,59 @@ function App() {
     }
   }, [college, professor, classParam])
 
-  // Handle query changes with debounce
+  // Perform a search with initialQuery on startup
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(query);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [query]);
+    if (initialQuery) {
+        setQuery(initialQuery); // Set the query to initialQuery
+        setDebouncedQuery(initialQuery); // Ensure debouncedQuery is also updated
+        setInitialized(true); // Mark the component as initialized
+        handleSearch(initialQuery); // Perform the search with initialQuery
+        console.log("Performing search with initialQuery:", initialQuery);
+    } else {
+        // If no initialQuery, fallback to debouncedQuery
+        setInitialized(true); // Mark the component as initialized
+        handleSearch(debouncedQuery); // Perform the search with debouncedQuery
+        console.log("No initialQuery, performing search with debouncedQuery:", debouncedQuery);
+    }
+  }, []); // Run only on component mount
 
   // Trigger search when debouncedQuery changes
   useEffect(() => {
-    if (initialSearchPerformed) {
-      handleSearch();
+    if (initialized) {
+        handleSearch(debouncedQuery); // Perform the search with debouncedQuery
+        console.log("Performing search with debouncedQuery:", debouncedQuery);
     }
-  }, [debouncedQuery]);
+  }, [debouncedQuery]); // Run whenever debouncedQuery changes
 
+  // Trigger search when filters change
   useEffect(() => {
-    handleSearch();
-    setInitialSearchPerformed(true);
-  }, [filter]);
-
-  async function handleSearch() {
-    if (!initialized) return;
-    if (query === "admin") {
-      navigate('admin');
+    if (initialized) {
+        handleSearch(debouncedQuery); // Perform the search with the current query and filters
+        console.log("Performing search with updated filters:", filter);
     }
+  }, [filter]); // Run whenever filters change
+
+
+  async function handleSearch(queryToSearch = debouncedQuery) {
     setQuerying(true);
+
     let end = ``;
     if (filter.school) end += `&s=${filter.school}`;
     if (filter.professor) end += `&p=${filter.professor}`;
     if (filter.class) end += `&c=${filter.class}`;
+
     try {
-      var response = await fetch(`${server}/search/?q=${debouncedQuery}${end}`);
-      var data = await response.json();
-      setQuerying(false);
-      setSyllabi(data);
-    } catch {
-      console.error("error")
+        console.log("Fetching search results for query:", queryToSearch);
+        const response = await fetch(`${server}/search/?q=${queryToSearch || ""}${end}`);
+        const data = await response.json();
+        setQuerying(false);
+        setSyllabi(data);
+        console.log("Search results:", data);
+    } catch (error) {
+        console.error("Error fetching search results:", error);
+        setQuerying(false);
     }
   }
-
-
-
 
   const location = useLocation();
 
@@ -123,12 +133,6 @@ function App() {
   },
     [location])
 
-    useEffect(() => {
-      setQuery(initialQuery);
-      setIntialized(true);
-      handleSearch();
-      console.log("initialQuery set to" + initialQuery)
-    }, [])
 
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -141,17 +145,18 @@ function App() {
     <>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
       {isMobile() === false &&
-        <div className="w-full flex place-items-center justify-center pt-1">
+        <div className="w-full flex place-items-center justify-center pt-16">
           <div className="w-3/4 flex justify-center items-center">
 
             <div className="place-items-center justify-center flex w-full flex-col">
               <div className="w-full flex space-y-2 flex-col">
-                <div className="flex pt-2">
+                <div className="flex flex-col pt-2">
+                  <text className="text-left pl-3">Search for classes by class name or professor name:</text>
                   <div className="flex-1 flex border  border-gray-400  focus:outline-none rounded-lg">
                     <input
                       type="search"
                       onKeyDown={handleKeyDown}
-                      placeholder="search, hit enter or the search button to enter query"
+                      placeholder="search bar..."
                       className="focus:outline-none placeholder:text-gray-500 font-normal focus:ring-0 bg-transparent border-none rounded-lg flex-1 text-black"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}>
@@ -161,7 +166,7 @@ function App() {
                         close
                       </span>
                     </button>
-                    <button className="aspect-square p-2 flex justify-center items-center" onClick={handleSearch}>
+                    <button className="aspect-square p-2 flex justify-center items-center" onClick={() => handleSearch}>
                       <span className="material-symbols-rounded  hover:text-black text-gray-500">
                         search
                       </span>
@@ -283,6 +288,10 @@ function App() {
                         <span className="text-md">{filter.professor}</span>
                         <button className="text-md text-red-700" onClick={() => setFilter({ ...filter, professor: undefined })}>Clear</button>
                       </div>}
+                      <div className="p-2 shadow-2xl rounded-md flex bg-orange-500 flex-col gap-1 border">
+                        <text className=" text-red-100">jfk college success club event:</text>
+                        <img className="p-2 shadow-md bg-white rounded-md border" src="/advertisement.png"/>
+                      </div>
                     </div>
                   </div>
 
@@ -314,7 +323,7 @@ function App() {
               <input type="search" onKeyDown={handleKeyDown} placeholder="search class or professor" className="focus:outline-none w-4/5 bg-transparent border-none flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
 
               </input>
-              <button className="aspect-square flex justify-center bg-white rounded-lg items-center" onClick={handleSearch}>
+              <button className="aspect-square flex justify-center bg-white rounded-lg items-center" onClick={() => handleSearch}>
                 <span className="material-symbols-rounded text-black">
                   search
                 </span>

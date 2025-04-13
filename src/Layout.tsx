@@ -16,7 +16,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
     return (
         <div className="bg-[#fcfffd] text-[#051008] w-full h-full">
-            <div className={`w-full sticky shadow-sm top-0 left-0 backdrop-blur-md z-50 text-left p-2 flex place-items-center justify-center border-b border-gray-300`}>
+            <div className={`w-full absolute shadow-sm top-0 left-0 backdrop-blur-md z-50 text-left p-2 flex place-items-center justify-center border-b border-gray-300`}>
                 <div className={`flex-1  gap-4 place-items-center ${!isMobile() ? "flex" : "flex flex-col"}`}>
                     {isMobile() ?
                         <button onClick={() => navigate("/upload")} className="p-1 flex-1 rounded-full  hover:drop-shadow-xl hover:bg-slate-950   pl-2 pr-2 font-bold bg-black">
@@ -63,7 +63,8 @@ function Layout({ children }: { children: React.ReactNode }) {
                     }
                 </div>
             </div>
-            {children}
+                {children}
+
         </div>
     )
 }

@@ -11,6 +11,7 @@ import Layout from './Layout.tsx';
 import UploadSyllabi from './pages/UploadSyllabi.tsx';
 import Professor from './pages/Professor.tsx';
 import Welcome from './welcome.tsx';
+import UploadSuccessfull from './pages/UploadSuccessFull.tsx';
 
 const server = "https://api.sharesyllabus.me";
 export default server;
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')!).render(
       <Route path="/syllabus/:id" element={<Layout><Syllabus /></Layout>} />
       <Route path="/upload" element={<Layout><UploadSyllabi /></Layout>} />
       <Route path="/professor/:id" element={<Layout><Professor /></Layout>} />  
+      <Route path="/upload_successfull/:id" element={<Layout><UploadSuccessfull /></Layout>} />
     </Routes>
   </HashRouter>
 );
