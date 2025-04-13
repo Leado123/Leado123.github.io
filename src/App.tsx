@@ -9,7 +9,7 @@ import server from './main'
 import Select from "react-select"
 import AsyncSelect from "react-select/async";
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { isMobile } from "is-mobile";
 import { useParams } from 'react-router-dom';
 import { School } from './pages/UploadSyllabi';
