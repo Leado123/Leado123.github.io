@@ -57,6 +57,21 @@ function App() {
     }
   }, [college, professor, classParam])
 
+  // --- ADD THIS DEBOUNCE EFFECT ---
+  useEffect(() => {
+    // Set a timer to update debouncedQuery after a delay (e.g., 500ms)
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+      console.log("Debounced query updated to:", query); // Add log
+    }, 500); // Adjust delay as needed (in milliseconds)
+
+    // Cleanup function: Clear the timeout if query changes again before the delay is over
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [query]); // This effect runs whenever the 'query' state changes
+  // --- END OF ADDED EFFECT ---
+
   // Perform a search with initialQuery on startup
   useEffect(() => {
     if (initialQuery) {
@@ -79,7 +94,7 @@ function App() {
         handleSearch(debouncedQuery); // Perform the search with debouncedQuery
         console.log("Performing search with debouncedQuery:", debouncedQuery);
     }
-  }, [debouncedQuery]); // Run whenever debouncedQuery changes
+  }, [debouncedQuery, initialized]); // Add initialized here
 
   // Trigger search when filters change
   useEffect(() => {
@@ -87,7 +102,7 @@ function App() {
         handleSearch(debouncedQuery); // Perform the search with the current query and filters
         console.log("Performing search with updated filters:", filter);
     }
-  }, [filter]); // Run whenever filters change
+  }, [filter, initialized]); // Add initialized here
 
 
   async function handleSearch(queryToSearch = debouncedQuery) {
@@ -164,7 +179,7 @@ function App() {
                         close
                       </span>
                     </button>
-                    <button className="aspect-square p-2 flex justify-center items-center" onClick={() => handleSearch}>
+                    <button className="aspect-square p-2 flex justify-center items-center" onClick={() => handleSearch()}>
                       <span className="material-symbols-rounded  hover:text-black text-gray-500">
                         search
                       </span>
@@ -312,16 +327,16 @@ function App() {
 
           </div>
         </div>}
-      {isMobile() === true && <div className="p-1 pt-2">
+      {isMobile() === true && <div className="p-1 pt-16" >
 
-        <div className="">
+        <div className="pt-2">
           <div className="flex space-x-1">
 
-            <div className="flex-1 flex bg-white rounded-lg">
-              <input type="search" onKeyDown={handleKeyDown} placeholder="search class or professor" className="focus:outline-none w-4/5 bg-transparent border-none flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
+            <div className="flex-1 flex bg-white outline-1 border rounded-lg">
+              <input type="search" onKeyDown={handleKeyDown} placeholder="search class or professor" className="outline-0 focus:outline-0 w-4/5 bg-transparent  border-0 flex-1 text-black" value={query} onChange={(e) => setQuery(e.target.value)}>
 
               </input>
-              <button className="aspect-square flex justify-center bg-white rounded-lg items-center" onClick={() => handleSearch}>
+              <button className="aspect-square flex justify-center bg-white rounded-lg items-center" onClick={() => handleSearch()}>
                 <span className="material-symbols-rounded text-black">
                   search
                 </span>

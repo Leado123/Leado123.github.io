@@ -20,7 +20,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 <div className={`flex-1  gap-4 place-items-center ${!isMobile() ? "flex" : "flex flex-col"}`}>
                     {isMobile() ?
                         <button onClick={() => navigate("/upload")} className="p-1 flex-1 rounded-full  hover:drop-shadow-xl hover:bg-slate-950   pl-2 pr-2 font-bold bg-black">
-                            <Marquee className="anim-enter-blur max-w-screen" delay={1} gradient={true} gradientWidth="10%" gradientColor="black" speed={15}>
+                            <Marquee className="anim-enter-blur " delay={1} gradient={true} gradientWidth="10%" gradientColor="black" speed={15}>
                                 <div className="flex gap-1">
                                     <span className="bg-blue-800 pl-2 gap-2 pr-2 rounded-md flex">
                                         <span className="text-white font-sans">Click to Share A Syllabus!</span>

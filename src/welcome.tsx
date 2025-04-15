@@ -67,7 +67,7 @@ function Welcome() {
 
 
     return (
-        <div className={`w-full flex-1 text-left h-full bg-[#fafdfb] bg-no-repeat bg-center gap-2 text-[#051008] place-items-center ${!isMobile() ? " bg-[url(/logo_big.png)] pt-32" : "p-4"} flex flex-col`}>
+        <div className={`w-full flex-1 text-left h-full bg-[#fafdfb] bg-no-repeat bg-center gap-2 text-[#051008] place-items-center ${!isMobile() ? " bg-[url(/logo_big.png)] pt-32" : "p-16"} flex flex-col`}>
 
             {!isMobile() &&
                 <div className="flex flex-col place-items-center z-50 gap-2">
