@@ -5,6 +5,7 @@ import SyllabusListing, { ClassListing } from './components/syllabus_comp';
 
 
 import server from './main'
+import { Adsense } from "@ctrl/react-adsense"
 
 import Select from "react-select"
 import AsyncSelect from "react-select/async";
@@ -75,32 +76,32 @@ function App() {
   // Perform a search with initialQuery on startup
   useEffect(() => {
     if (initialQuery) {
-        setQuery(initialQuery); // Set the query to initialQuery
-        setDebouncedQuery(initialQuery); // Ensure debouncedQuery is also updated
-        setInitialized(true); // Mark the component as initialized
-        handleSearch(initialQuery); // Perform the search with initialQuery
-        console.log("Performing search with initialQuery:", initialQuery);
+      setQuery(initialQuery); // Set the query to initialQuery
+      setDebouncedQuery(initialQuery); // Ensure debouncedQuery is also updated
+      setInitialized(true); // Mark the component as initialized
+      handleSearch(initialQuery); // Perform the search with initialQuery
+      console.log("Performing search with initialQuery:", initialQuery);
     } else {
-        // If no initialQuery, fallback to debouncedQuery
-        setInitialized(true); // Mark the component as initialized
-        handleSearch(debouncedQuery); // Perform the search with debouncedQuery
-        console.log("No initialQuery, performing search with debouncedQuery:", debouncedQuery);
+      // If no initialQuery, fallback to debouncedQuery
+      setInitialized(true); // Mark the component as initialized
+      handleSearch(debouncedQuery); // Perform the search with debouncedQuery
+      console.log("No initialQuery, performing search with debouncedQuery:", debouncedQuery);
     }
   }, []); // Run only on component mount
 
   // Trigger search when debouncedQuery changes
   useEffect(() => {
     if (initialized) {
-        handleSearch(debouncedQuery); // Perform the search with debouncedQuery
-        console.log("Performing search with debouncedQuery:", debouncedQuery);
+      handleSearch(debouncedQuery); // Perform the search with debouncedQuery
+      console.log("Performing search with debouncedQuery:", debouncedQuery);
     }
   }, [debouncedQuery, initialized]); // Add initialized here
 
   // Trigger search when filters change
   useEffect(() => {
     if (initialized) {
-        handleSearch(debouncedQuery); // Perform the search with the current query and filters
-        console.log("Performing search with updated filters:", filter);
+      handleSearch(debouncedQuery); // Perform the search with the current query and filters
+      console.log("Performing search with updated filters:", filter);
     }
   }, [filter, initialized]); // Add initialized here
 
@@ -114,15 +115,15 @@ function App() {
     if (filter.class) end += `&c=${filter.class}`;
 
     try {
-        console.log("Fetching search results for query:", queryToSearch);
-        const response = await fetch(`${server}/search/?q=${queryToSearch || ""}${end}`);
-        const data = await response.json();
-        setQuerying(false);
-        setSyllabi(data);
-        console.log("Search results:", data);
+      console.log("Fetching search results for query:", queryToSearch);
+      const response = await fetch(`${server}/search/?q=${queryToSearch || ""}${end}`);
+      const data = await response.json();
+      setQuerying(false);
+      setSyllabi(data);
+      console.log("Search results:", data);
     } catch (error) {
-        console.error("Error fetching search results:", error);
-        setQuerying(false);
+      console.error("Error fetching search results:", error);
+      setQuerying(false);
     }
   }
 
@@ -303,8 +304,14 @@ function App() {
                       </div>}
                       <div className="p-2 shadow-2xl rounded-md flex bg-orange-500 flex-col gap-1 border">
                         <text className=" text-red-100">jfk college success club event:</text>
-                        <img className="p-2 shadow-md bg-white rounded-md border" src="/advertisement.png"/>
+                        <img className="p-2 shadow-md bg-white rounded-md border" src="/advertisement.png" />
                       </div>
+                      <Adsense 
+                        client="ca-pub-1666992508674643"
+                        slot="9572064228"
+                        format="auto"
+                        className="h-full"
+                      />
                     </div>
                   </div>
 

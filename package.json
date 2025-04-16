@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.12.6",
+    "@ctrl/react-adsense": "^1.8.0",
     "@jcamp/vitepress-blog-theme": "^0.3.0",
     "@mdxeditor/editor": "^3.25.1",
     "@million/lint": "latest",
