@@ -310,7 +310,7 @@ function App() {
                         client="ca-pub-1666992508674643"
                         slot="9572064228"
                         format="auto"
-                        className="h-full"
+                        className=" block"
                       />
                     </div>
                   </div>
