@@ -96,7 +96,7 @@ function UploadSyllabi() {
 
         console.log(formData);
 
-        fetch(`https://api.sharesyllabus.me/create`, {
+        fetch(`https://sharesyllabus.leowen.me/create`, {
             method: "POST",
             body: formData,
         })

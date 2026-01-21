@@ -13,7 +13,7 @@ import Professor from './pages/Professor.tsx';
 import Welcome from './welcome.tsx';
 import UploadSuccessfull from './pages/UploadSuccessFull.tsx';
 
-const server = "https://api.sharesyllabus.me";
+const server = "https://sharesyllabus.leowen.me";
 export default server;
 
 createRoot(document.getElementById('root')!).render(
